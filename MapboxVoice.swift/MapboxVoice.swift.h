@@ -1,12 +1,4 @@
-//
-//  MapboxVoice.swift.h
-//  MapboxVoice.swift
-//
-//  Created by Bobby Sudekum on 9/15/17.
-//  Copyright © 2017 Mapbox. All rights reserved.
-//
-
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for MapboxVoice.swift.
 FOUNDATION_EXPORT double MapboxVoice_swiftVersionNumber;

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import MapboxVoice_swift
+@testable import MapboxVoice
 
 class MapboxVoice_swiftTests: XCTestCase {
     
@@ -22,8 +22,17 @@ class MapboxVoice_swiftTests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let voice = Voice(accessToken: "foo", host: "foo")
+        let options = VoiceOptions(text: "foo")
+        options.textType = .text
+        options.voiceId = .Joanna
+        options.outputFormat = .mp3
+        
+        voice.calculate(options) { (data: Data?, error: NSError?) in
+            XCTAssertNil(error)
+            
+            XCTAssertNotNil(data)
+        }
     }
     
     func testPerformanceExample() {
