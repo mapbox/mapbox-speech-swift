@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MapboxVoice.swift.xcscheme</key>
+		<key>MapboxVoice.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C5F8FDBD1F6C39BA003DAF42</key>
+		<key>C54F534B1F6C754D00BFCC66</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5F8FDC61F6C39BA003DAF42</key>
+		<key>C54F53541F6C754D00BFCC66</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -1,15 +1,7 @@
-//
-//  MapboxVoice_swiftTests.swift
-//  MapboxVoice.swiftTests
-//
-//  Created by Bobby Sudekum on 9/15/17.
-//  Copyright © 2017 Mapbox. All rights reserved.
-//
-
 import XCTest
 @testable import MapboxVoice
 
-class MapboxVoice_swiftTests: XCTestCase {
+class MapboxVoicZTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
