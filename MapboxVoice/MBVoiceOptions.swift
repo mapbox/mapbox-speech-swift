@@ -590,7 +590,8 @@ open class VoiceOptions: NSObject, NSSecureCoding {
      The path of the request URL, not including the hostname or any parameters.
      */
     internal var path: String {
-        return "voice/v1/speak/\(text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)"
+        let allowedCharacterSet = (CharacterSet(charactersIn: "\\!*'();:@&=+$,/<>?%#[] ").inverted)
+        return "voice/v1/speak/\(text.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)!)"
     }
     
     /**
