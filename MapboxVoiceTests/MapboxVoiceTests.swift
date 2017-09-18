@@ -20,11 +20,11 @@ class MapboxVoicZTests: XCTestCase {
         options.voiceId = .Joanna
         options.outputFormat = .mp3
         
-        voice.calculate(options) { (data: Data?, error: NSError?) in
+        _ = voice.speak(options) { (data: Data?, error: NSError?) in
             XCTAssertNil(error)
             
             XCTAssertNotNil(data)
-        }
+        }.resume()
     }
     
     func testPerformanceExample() {

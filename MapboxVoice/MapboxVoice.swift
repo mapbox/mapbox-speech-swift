@@ -103,8 +103,8 @@ open class Voice: NSObject {
      - parameter completionHandler: The closure (block) to call with the resulting routes. This closure is executed on the application’s main thread.
      - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting routes, cancel this task.
      */
-    @objc(calculateVoiceWithOptions:completionHandler:)
-    open func calculate(_ options: VoiceOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
+    @objc(speakVoiceWithOptions:completionHandler:)
+    open func speak(_ options: VoiceOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let url = self.url(forCalculating: options)
         let task = dataTask(with: url, completionHandler: { (data) in
             completionHandler(data, nil)

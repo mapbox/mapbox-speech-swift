@@ -78,46 +78,6 @@ public enum AudioFormat: UInt, CustomStringConvertible {
     }
 }
 
-/**
- A `MeasurementSystem` indicates the type of units used for formatted a voice instruction.
- */
-@objc(MBMeasurementSystem)
-public enum MeasurementSystem: UInt, CustomStringConvertible {
-    
-    /**
-     Imperial units.
-     */
-    case imperial
-    
-    /**
-     Metric system.
-     */
-    case metric
-    
-    public init?(description: String) {
-        let format: MeasurementSystem
-        switch description {
-        case "imperial":
-            format = .imperial
-        case "metric":
-            format = .metric
-        default:
-            return nil
-        }
-        self.init(rawValue: format.rawValue)
-    }
-    
-    public var description: String {
-        switch self {
-        case .imperial:
-            return "imperial"
-        case .metric:
-            return "metric"
-        }
-    }
-}
-
-
 @objc(MBVoiceOptions)
 open class VoiceOptions: NSObject, NSSecureCoding {
     
@@ -165,7 +125,7 @@ open class VoiceOptions: NSObject, NSSecureCoding {
      The path of the request URL, not including the hostname or any parameters.
      */
     internal var path: String {
-        return "voice/v1/\(text)"
+        return "voice/v1/speak/\(text)"
     }
     
     /**
