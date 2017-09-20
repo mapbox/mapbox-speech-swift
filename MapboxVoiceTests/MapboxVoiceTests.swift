@@ -14,10 +14,10 @@ class MapboxVoicZTests: XCTestCase {
     }
     
     func testExample() {
-        let voice = Voice(accessToken: "foo", host: "foo")
+        let voice = Voice(accessToken: "pk.foo", host: "api-voice-staging.tilestream.net")
         let options = VoiceOptions(text: "foo")
         options.textType = .text
-        options.voiceId = .Joanna
+        options.voiceId = .joanna
         options.outputFormat = .mp3
         
         _ = voice.speak(options) { (data: Data?, error: NSError?) in
@@ -26,12 +26,4 @@ class MapboxVoicZTests: XCTestCase {
             XCTAssertNotNil(data)
         }.resume()
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

@@ -590,8 +590,8 @@ open class VoiceOptions: NSObject, NSSecureCoding {
      The path of the request URL, not including the hostname or any parameters.
      */
     internal var path: String {
-        let allowedCharacterSet = (CharacterSet(charactersIn: "\\!*'();:@&=+$,/<>?%#[]\" ").inverted)
-        return "voice/v1/speak/\(text.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)!)"
+        let disallowedCharacters = (CharacterSet(charactersIn: "\\!*'();:@&=+$,/<>?%#[]\" ").inverted)
+        return "voice/v1/speak/\(text.addingPercentEncoding(withAllowedCharacters: disallowedCharacters)!)"
     }
     
     /**
@@ -599,9 +599,9 @@ open class VoiceOptions: NSObject, NSSecureCoding {
      */
     internal var params: [URLQueryItem] {
         let params: [URLQueryItem] = [
-            URLQueryItem(name: "TextType", value: String(describing: textType)),
-            URLQueryItem(name: "VoiceId", value: String(describing: voiceId)),
-            URLQueryItem(name: "OutputFormat", value: String(describing: outputFormat))
+            URLQueryItem(name: "textType", value: String(describing: textType)),
+            URLQueryItem(name: "voiceId", value: String(describing: voiceId)),
+            URLQueryItem(name: "outputFormat", value: String(describing: outputFormat))
         ]
         
         return params
