@@ -92,7 +92,6 @@ open class Voice: NSObject {
         self.init(accessToken: accessToken, host: nil)
     }
     
-    // MARK: Getting Voice
     
     /**
      Begins asynchronously fetching the audio file.
