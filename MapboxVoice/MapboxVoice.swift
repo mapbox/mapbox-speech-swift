@@ -95,13 +95,13 @@ open class Voice: NSObject {
     // MARK: Getting Voice
     
     /**
-     Begins asynchronously calculating the route or routes using the given options and delivers the results to a closure.
+     Begins asynchronously fetching the audio file.
      
-     This method retrieves the routes asynchronously over a network connection. If a connection error or server error occurs, details about the error are passed into the given completion handler in lieu of the routes.
+     This method retrieves the audio asynchronously over a network connection. If a connection error or server error occurs, details about the error are passed into the given completion handler in lieu of the audio file.
      
-     - parameter options: A `RouteOptions` object specifying the requirements for the resulting routes.
-     - parameter completionHandler: The closure (block) to call with the resulting routes. This closure is executed on the application’s main thread.
-     - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting routes, cancel this task.
+     - parameter options: A `VoiceOptions` object specifying the requirements for the resulting audio file.
+     - parameter completionHandler: The closure (block) to call with the resulting audio. This closure is executed on the application’s main thread.
+     - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting audio, cancel this task.
      */
     @objc(speakVoiceWithOptions:completionHandler:)
     open func speak(_ options: VoiceOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
@@ -159,9 +159,7 @@ open class Voice: NSObject {
     }
     
     /**
-     The HTTP URL used to fetch the routes from the API.
-     
-     After requesting the URL returned by this method, you can parse the JSON data in the response and pass it into the `Route.init(json:waypoints:profileIdentifier:)` initializer.
+     The HTTP URL used to fetch audio from the API.
      */
     @objc(URLForCalculatingVoiceWithOptions:)
     open func url(forCalculating options: VoiceOptions) -> URL {
@@ -185,12 +183,6 @@ open class Voice: NSObject {
             var failureReason: String? = nil
             var recoverySuggestion: String? = nil
             switch (response.statusCode, apiStatusCode ?? "") {
-            case (200, "NoRoute"):
-                failureReason = "No route could be found between the specified locations."
-                recoverySuggestion = "Make sure it is possible to travel between the locations with the mode of transportation implied by the profileIdentifier option. For example, it is impossible to travel by car from one continent to another without either a land bridge or a ferry connection."
-            case (200, "NoSegment"):
-                failureReason = "A specified location could not be associated with a roadway or pathway."
-                recoverySuggestion = "Make sure the locations are close enough to a roadway or pathway. Try setting the coordinateAccuracy property of all the waypoints to a negative value."
             case (404, "ProfileNotFound"):
                 failureReason = "Unrecognized profile identifier."
                 recoverySuggestion = "Make sure the profileIdentifier option is set to one of the provided constants."
@@ -207,8 +199,7 @@ open class Voice: NSObject {
                     recoverySuggestion = "Wait until \(formattedDate) before retrying."
                 }
             default:
-                // `message` is v4 or v5; `error` is v4
-                failureReason = json["message"] as? String ?? json["error"] as? String
+                failureReason = json["message"] as? String
             }
             userInfo[NSLocalizedFailureReasonErrorKey] = failureReason ?? userInfo[NSLocalizedFailureReasonErrorKey] ?? HTTPURLResponse.localizedString(forStatusCode: error?.code ?? -1)
             userInfo[NSLocalizedRecoverySuggestionErrorKey] = recoverySuggestion ?? userInfo[NSLocalizedRecoverySuggestionErrorKey]
@@ -244,5 +235,4 @@ extension HTTPURLResponse {
         }
         return Date(timeIntervalSince1970: resetTimeNumber)
     }
-    
 }

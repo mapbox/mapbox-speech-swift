@@ -14,7 +14,7 @@ class MapboxVoicZTests: XCTestCase {
     }
     
     func testExample() {
-        let voice = Voice(accessToken: "pk.foo", host: "api-voice-staging.tilestream.net")
+        let voice = Voice(accessToken: "pk.foo", host: "api.mapbox.com")
         let options = VoiceOptions(text: "foo")
         options.textType = .text
         options.voiceId = .joanna

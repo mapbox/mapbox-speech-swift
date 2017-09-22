@@ -5,14 +5,13 @@ Pod::Spec.new do |s|
   s.name = "MapboxVoice"
   s.version = "0.0.1"
 
-  s.summary = "Core components for turn-by-turn navigation on iOS."
+  s.summary = "Mapbox Voice API wrapper for Swift and Objective-C."
 
    s.description  = <<-DESC
-   Mapbox Core Navigation provides the core spatial and timing logic for turn-by-turn navigation along a route. For a complete turn-by-turn navigation interface, use the Mapbox Navigation SDK for iOS (MapboxNavigation).
-                    DESC
+   mapbox-voice-swift makes it easy to connect your iOS, macOS, tvOS, or watchOS application to the Mapbox Voice API. Quickly get audio files from a text string.
+                   DESC
 
-  s.homepage = "https://www.mapbox.com/navigation-sdk/"
-  s.documentation_url = "https://www.mapbox.com/mapbox-navigation-ios/navigation/"
+  s.documentation_url = "https://www.mapbox.com/mapbox-navigation-ios/voice/"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
@@ -30,7 +29,7 @@ Pod::Spec.new do |s|
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source = { :git => "https://github.com/mapbox/mapbox-voice-swift.git", :tag => "v#{s.version.to_s}" }
+  s.source = { :git => "https://github.com/mapbox/mapbox-voice-swift", :tag => "v#{s.version.to_s}" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 

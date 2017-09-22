@@ -482,9 +482,7 @@ public enum VoiceId: UInt, CustomStringConvertible {
 
 @objc(MBAudioFormat)
 public enum AudioFormat: UInt, CustomStringConvertible {
-    
-    case json
-    
+
     case mp3
     
     case oggVorbis
@@ -494,12 +492,10 @@ public enum AudioFormat: UInt, CustomStringConvertible {
     public init?(description: String) {
         let format: AudioFormat
         switch description {
-        case "json":
-            format = .json
         case "mp3":
             format = .mp3
         case "ogg_vorbis":
-            format = .json
+            format = .oggVorbis
         case "pcm":
             format = .pcm
         default:
@@ -510,8 +506,6 @@ public enum AudioFormat: UInt, CustomStringConvertible {
     
     public var description: String {
         switch self {
-        case .json:
-            return "json"
         case .mp3:
             return "mp3"
         case .oggVorbis:
