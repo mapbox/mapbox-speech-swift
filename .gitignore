@@ -30,3 +30,6 @@ xcuserdata
 .build/
 
 # Carthage
+
+# Node
+/scripts/node_modules/
