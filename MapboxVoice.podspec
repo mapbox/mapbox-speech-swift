@@ -3,15 +3,15 @@ Pod::Spec.new do |s|
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.name = "MapboxVoice"
-  s.version = "0.0.1"
+  s.version = "0.0.1-pre.1"
 
   s.summary = "Mapbox Voice API wrapper for Swift and Objective-C."
 
    s.description  = <<-DESC
    mapbox-voice-swift makes it easy to connect your iOS, macOS, tvOS, or watchOS application to the Mapbox Voice API. Quickly get audio files from a text string.
                    DESC
-
-  s.documentation_url = "https://www.mapbox.com/mapbox-navigation-ios/voice/"
+  s.homepage = "https://www.mapbox.com/navigation-sdk/"
+  #s.documentation_url = "https://www.mapbox.com/mapbox-navigation-ios/voice/"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source = { :git => "https://github.com/mapbox/mapbox-voice-swift", :tag => "v#{s.version.to_s}" }
+  s.source = { :git => "https://github.com/mapbox/mapbox-voice-swift.git", :branch => "master" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
