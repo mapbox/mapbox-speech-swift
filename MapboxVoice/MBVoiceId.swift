@@ -12,6 +12,14 @@ public enum VoiceId: UInt, CustomStringConvertible {
 	 */
 	case joanna
 	/**
+	 Female voice for `Locale` `en-IN.`
+	 */
+	case aditi
+	/**
+	 Male voice for `Locale` `ja-JP.`
+	 */
+	case takumi
+	/**
 	 Female voice for `Locale` `ja-JP.`
 	 */
 	case mizuki
@@ -76,6 +84,10 @@ public enum VoiceId: UInt, CustomStringConvertible {
 	 */
 	case liv
 	/**
+	 Female voice for `Locale` `ko-KR.`
+	 */
+	case seoyeon
+	/**
 	 Male voice for `Locale` `it-IT.`
 	 */
 	case giorgio
@@ -127,6 +139,10 @@ public enum VoiceId: UInt, CustomStringConvertible {
 	 Female voice for `Locale` `en-US.`
 	 */
 	case salli
+	/**
+	 Male voice for `Locale` `en-US.`
+	 */
+	case matthew
 	/**
 	 Female voice for `Locale` `en-US.`
 	 */
@@ -205,6 +221,10 @@ public init?(description: String) {
 		switch description {
 			case "Joanna":
 		voice = .joanna
+			case "Aditi":
+		voice = .aditi
+			case "Takumi":
+		voice = .takumi
 			case "Mizuki":
 		voice = .mizuki
 			case "Filiz":
@@ -237,6 +257,8 @@ public init?(description: String) {
 		voice = .lotte
 			case "Liv":
 		voice = .liv
+			case "Seoyeon":
+		voice = .seoyeon
 			case "Giorgio":
 		voice = .giorgio
 			case "Carla":
@@ -263,6 +285,8 @@ public init?(description: String) {
 		voice = .geraint
 			case "Salli":
 		voice = .salli
+			case "Matthew":
+		voice = .matthew
 			case "Kimberly":
 		voice = .kimberly
 			case "Kendra":
@@ -310,6 +334,10 @@ public init?(description: String) {
 		switch self {
 		case .joanna:
 			return "Joanna"
+		case .aditi:
+			return "Aditi"
+		case .takumi:
+			return "Takumi"
 		case .mizuki:
 			return "Mizuki"
 		case .filiz:
@@ -342,6 +370,8 @@ public init?(description: String) {
 			return "Lotte"
 		case .liv:
 			return "Liv"
+		case .seoyeon:
+			return "Seoyeon"
 		case .giorgio:
 			return "Giorgio"
 		case .carla:
@@ -368,6 +398,8 @@ public init?(description: String) {
 			return "Geraint"
 		case .salli:
 			return "Salli"
+		case .matthew:
+			return "Matthew"
 		case .kimberly:
 			return "Kimberly"
 		case .kendra:
