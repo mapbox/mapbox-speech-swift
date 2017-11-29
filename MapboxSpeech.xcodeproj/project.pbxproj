@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C51F0A841F7C15B2008DD2D3 /* MBVoiceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51F0A831F7C15B2008DD2D3 /* MBVoiceId.swift */; };
-		C54F53561F6C754D00BFCC66 /* MapboxVoice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54F534C1F6C754D00BFCC66 /* MapboxVoice.framework */; };
+		C54F53561F6C754D00BFCC66 /* MapboxSpeech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54F534C1F6C754D00BFCC66 /* MapboxSpeech.framework */; };
 		C54F535B1F6C754D00BFCC66 /* MapboxVoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F535A1F6C754D00BFCC66 /* MapboxVoiceTests.swift */; };
 		C54F535D1F6C754D00BFCC66 /* MapboxVoice.h in Headers */ = {isa = PBXBuildFile; fileRef = C54F534F1F6C754D00BFCC66 /* MapboxVoice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C54F53671F6C756B00BFCC66 /* MapboxVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F53661F6C756B00BFCC66 /* MapboxVoice.swift */; };
@@ -27,10 +27,10 @@
 
 /* Begin PBXFileReference section */
 		C51F0A831F7C15B2008DD2D3 /* MBVoiceId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBVoiceId.swift; sourceTree = "<group>"; };
-		C54F534C1F6C754D00BFCC66 /* MapboxVoice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapboxVoice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C54F534C1F6C754D00BFCC66 /* MapboxSpeech.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapboxSpeech.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54F534F1F6C754D00BFCC66 /* MapboxVoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapboxVoice.h; sourceTree = "<group>"; };
 		C54F53501F6C754D00BFCC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C54F53551F6C754D00BFCC66 /* MapboxVoiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapboxVoiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C54F53551F6C754D00BFCC66 /* MapboxSpeechTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapboxSpeechTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54F535A1F6C754D00BFCC66 /* MapboxVoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxVoiceTests.swift; sourceTree = "<group>"; };
 		C54F535C1F6C754D00BFCC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C54F53661F6C756B00BFCC66 /* MapboxVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapboxVoice.swift; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C54F53561F6C754D00BFCC66 /* MapboxVoice.framework in Frameworks */,
+				C54F53561F6C754D00BFCC66 /* MapboxSpeech.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,8 +68,8 @@
 		C54F534D1F6C754D00BFCC66 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C54F534C1F6C754D00BFCC66 /* MapboxVoice.framework */,
-				C54F53551F6C754D00BFCC66 /* MapboxVoiceTests.xctest */,
+				C54F534C1F6C754D00BFCC66 /* MapboxSpeech.framework */,
+				C54F53551F6C754D00BFCC66 /* MapboxSpeechTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,9 +109,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C54F534B1F6C754D00BFCC66 /* MapboxVoice */ = {
+		C54F534B1F6C754D00BFCC66 /* MapboxSpeech */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C54F53601F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxVoice" */;
+			buildConfigurationList = C54F53601F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxSpeech" */;
 			buildPhases = (
 				C54F53471F6C754D00BFCC66 /* Sources */,
 				C54F53481F6C754D00BFCC66 /* Frameworks */,
@@ -122,14 +122,14 @@
 			);
 			dependencies = (
 			);
-			name = MapboxVoice;
+			name = MapboxSpeech;
 			productName = MapboxVoice;
-			productReference = C54F534C1F6C754D00BFCC66 /* MapboxVoice.framework */;
+			productReference = C54F534C1F6C754D00BFCC66 /* MapboxSpeech.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C54F53541F6C754D00BFCC66 /* MapboxVoiceTests */ = {
+		C54F53541F6C754D00BFCC66 /* MapboxSpeechTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C54F53631F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxVoiceTests" */;
+			buildConfigurationList = C54F53631F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxSpeechTests" */;
 			buildPhases = (
 				C54F53511F6C754D00BFCC66 /* Sources */,
 				C54F53521F6C754D00BFCC66 /* Frameworks */,
@@ -140,9 +140,9 @@
 			dependencies = (
 				C54F53581F6C754D00BFCC66 /* PBXTargetDependency */,
 			);
-			name = MapboxVoiceTests;
+			name = MapboxSpeechTests;
 			productName = MapboxVoiceTests;
-			productReference = C54F53551F6C754D00BFCC66 /* MapboxVoiceTests.xctest */;
+			productReference = C54F53551F6C754D00BFCC66 /* MapboxSpeechTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -167,7 +167,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C54F53461F6C754D00BFCC66 /* Build configuration list for PBXProject "MapboxVoice" */;
+			buildConfigurationList = C54F53461F6C754D00BFCC66 /* Build configuration list for PBXProject "MapboxSpeech" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -179,8 +179,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C54F534B1F6C754D00BFCC66 /* MapboxVoice */,
-				C54F53541F6C754D00BFCC66 /* MapboxVoiceTests */,
+				C54F534B1F6C754D00BFCC66 /* MapboxSpeech */,
+				C54F53541F6C754D00BFCC66 /* MapboxSpeechTests */,
 			);
 		};
 /* End PBXProject section */
@@ -226,7 +226,7 @@
 /* Begin PBXTargetDependency section */
 		C54F53581F6C754D00BFCC66 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C54F534B1F6C754D00BFCC66 /* MapboxVoice */;
+			target = C54F534B1F6C754D00BFCC66 /* MapboxSpeech */;
 			targetProxy = C54F53571F6C754D00BFCC66 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -427,7 +427,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C54F53461F6C754D00BFCC66 /* Build configuration list for PBXProject "MapboxVoice" */ = {
+		C54F53461F6C754D00BFCC66 /* Build configuration list for PBXProject "MapboxSpeech" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54F535E1F6C754D00BFCC66 /* Debug */,
@@ -436,7 +436,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C54F53601F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxVoice" */ = {
+		C54F53601F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxSpeech" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54F53611F6C754D00BFCC66 /* Debug */,
@@ -445,7 +445,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C54F53631F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxVoiceTests" */ = {
+		C54F53631F6C754D00BFCC66 /* Build configuration list for PBXNativeTarget "MapboxSpeechTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54F53641F6C754D00BFCC66 /* Debug */,
