@@ -71,7 +71,7 @@ open class Voice: NSObject {
     internal let accessToken: String
     
     
-    public init(accessToken: String?, host: String?) {
+    @objc public init(accessToken: String?, host: String?) {
         let accessToken = accessToken ?? defaultAccessToken
         assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Voice(accessToken:host:) initializer.")
         
@@ -88,7 +88,7 @@ open class Voice: NSObject {
      
      - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the voice object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      */
-    public convenience init(accessToken: String?) {
+    @objc public convenience init(accessToken: String?) {
         self.init(accessToken: accessToken, host: nil)
     }
     
