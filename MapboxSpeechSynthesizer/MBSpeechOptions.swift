@@ -66,8 +66,8 @@ public enum AudioFormat: UInt, CustomStringConvertible {
     }
 }
 
-@objc(MBVoiceOptions)
-open class VoiceOptions: NSObject, NSSecureCoding {
+@objc(MBSpeechOptions)
+open class SpeechOptions: NSObject, NSSecureCoding {
     
     public init(text: String) {
         self.text = text

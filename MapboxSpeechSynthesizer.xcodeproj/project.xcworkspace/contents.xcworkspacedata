@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MapboxVoice.xcodeproj">
+      location = "self:/Users/bobby/Documents/mapbox/mapbox-voice-swift/MapboxSpeechSynthesizer.xcodeproj">
    </FileRef>
 </Workspace>

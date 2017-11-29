@@ -1,5 +1,5 @@
 import XCTest
-@testable import MapboxVoice
+@testable import MapboxSpeechSynthesizer
 
 class MapboxVoicZTests: XCTestCase {
     
@@ -14,13 +14,13 @@ class MapboxVoicZTests: XCTestCase {
     }
     
     func testExample() {
-        let voice = Voice(accessToken: "pk.foo", host: "api.mapbox.com")
-        let options = VoiceOptions(text: "foo")
+        let synthesizer = SpeechSynthesizer(accessToken: "pk.foo", host: "api.mapbox.com")
+        let options = SpeechOptions(text: "foo")
         options.textType = .text
         options.voiceId = .joanna
         options.outputFormat = .mp3
         
-        _ = voice.speak(options) { (data: Data?, error: NSError?) in
+        synthesizer.fetch(options) { (data: Data?, error: NSError?) in
             XCTAssertNil(error)
             
             XCTAssertNotNil(data)

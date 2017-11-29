@@ -17,7 +17,7 @@ let userAgent: String = {
         components.append("\(appName)/\(version)")
     }
     
-    let libraryBundle: Bundle? = Bundle(for: Voice.self)
+    let libraryBundle: Bundle? = Bundle(for: SpeechSynthesizer.self)
     
     if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String, let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
         components.append("\(libraryName)/\(version)")
@@ -55,14 +55,14 @@ let userAgent: String = {
 
 
 @objc(MBVoice)
-open class Voice: NSObject {
+open class SpeechSynthesizer: NSObject {
     
     public typealias CompletionHandler = (_ data: Data?, _ error: NSError?) -> Void
     
     // MARK: Creating a Voice Object
     
-    @objc(sharedVoice)
-    open static let shared = Voice(accessToken: nil)
+    @objc(sharedSpeechSynthesizer)
+    open static let shared = SpeechSynthesizer(accessToken: nil)
     
     /// The API endpoint to request the audio from.
     internal var apiEndpoint: URL
@@ -104,7 +104,7 @@ open class Voice: NSObject {
      - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting audio, cancel this task.
      */
     @objc(speakVoiceWithOptions:completionHandler:)
-    open func speak(_ options: VoiceOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
+    open func fetch(_ options: SpeechOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let url = self.url(forCalculating: options)
         let task = dataTask(with: url, completionHandler: { (data) in
             completionHandler(data, nil)
@@ -143,7 +143,7 @@ open class Voice: NSObject {
             let apiStatusCode = errorJSON["code"] as? String
             let apiMessage = errorJSON["message"] as? String
             guard data != nil && error == nil && ((apiStatusCode == nil && apiMessage == nil) || apiStatusCode == "Ok") else {
-                let apiError = Voice.informativeError(describing: errorJSON, response: response, underlyingError: error as NSError?)
+                let apiError = SpeechSynthesizer.informativeError(describing: errorJSON, response: response, underlyingError: error as NSError?)
                 DispatchQueue.main.async {
                     errorHandler(apiError)
                 }
@@ -162,7 +162,7 @@ open class Voice: NSObject {
      The HTTP URL used to fetch audio from the API.
      */
     @objc(URLForCalculatingVoiceWithOptions:)
-    open func url(forCalculating options: VoiceOptions) -> URL {
+    open func url(forCalculating options: SpeechOptions) -> URL {
         let params = options.params + [
             URLQueryItem(name: "access_token", value: accessToken),
         ]
