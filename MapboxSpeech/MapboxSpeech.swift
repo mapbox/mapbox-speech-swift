@@ -2,8 +2,8 @@ import Foundation
 
 typealias JSONDictionary = [String: Any]
 
-/// Indicates that an error occurred in MapboxVoice.
-public let MBVoiceErrorDomain = "MBVoiceErrorDomain"
+/// Indicates that an error occurred in MapboxSpeech.
+public let MBSpeechErrorDomain = "MBSpeechErrorDomain"
 
 /// The Mapbox access token specified in the main application bundle’s Info.plist.
 let defaultAccessToken = Bundle.main.object(forInfoDictionaryKey: "MGLMapboxAccessToken") as? String
@@ -17,7 +17,7 @@ let userAgent: String = {
         components.append("\(appName)/\(version)")
     }
     
-    let libraryBundle: Bundle? = Bundle(for: Voice.self)
+    let libraryBundle: Bundle? = Bundle(for: SpeechSynthesizer.self)
     
     if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String, let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
         components.append("\(libraryName)/\(version)")
@@ -54,15 +54,15 @@ let userAgent: String = {
 }()
 
 
-@objc(MBVoice)
-open class Voice: NSObject {
+@objc(MBSpeechSynthesizer)
+open class SpeechSynthesizer: NSObject {
     
     public typealias CompletionHandler = (_ data: Data?, _ error: NSError?) -> Void
     
-    // MARK: Creating a Voice Object
+    // MARK: Creating a Speech Object
     
-    @objc(sharedVoice)
-    open static let shared = Voice(accessToken: nil)
+    @objc(sharedSpeech)
+    open static let shared = SpeechSynthesizer(accessToken: nil)
     
     /// The API endpoint to request the audio from.
     internal var apiEndpoint: URL
@@ -73,7 +73,7 @@ open class Voice: NSObject {
     
     @objc public init(accessToken: String?, host: String?) {
         let accessToken = accessToken ?? defaultAccessToken
-        assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Voice(accessToken:host:) initializer.")
+        assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Speech(accessToken:host:) initializer.")
         
         self.accessToken = accessToken!
         
@@ -84,27 +84,27 @@ open class Voice: NSObject {
     }
     
     /**
-     Initializes a newly created voice object with an optional access token.
+     Initializes a newly created Speech object with an optional access token.
      
-     - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the voice object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
+     - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the Speech object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      */
     @objc public convenience init(accessToken: String?) {
         self.init(accessToken: accessToken, host: nil)
     }
     
-    // MARK: Getting Voice
+    // MARK: Getting Speech
     
     /**
      Begins asynchronously fetching the audio file.
      
      This method retrieves the audio asynchronously over a network connection. If a connection error or server error occurs, details about the error are passed into the given completion handler in lieu of the audio file.
      
-     - parameter options: A `VoiceOptions` object specifying the requirements for the resulting audio file.
+     - parameter options: A `SpeechOptions` object specifying the requirements for the resulting audio file.
      - parameter completionHandler: The closure (block) to call with the resulting audio. This closure is executed on the application’s main thread.
      - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting audio, cancel this task.
      */
-    @objc(speakVoiceWithOptions:completionHandler:)
-    open func speak(_ options: VoiceOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
+    @objc(speakSpeechWithOptions:completionHandler:)
+    open func speak(_ options: SpeechOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let url = self.url(forCalculating: options)
         let task = dataTask(with: url, completionHandler: { (data) in
             completionHandler(data, nil)
@@ -143,7 +143,7 @@ open class Voice: NSObject {
             let apiStatusCode = errorJSON["code"] as? String
             let apiMessage = errorJSON["message"] as? String
             guard data != nil && error == nil && ((apiStatusCode == nil && apiMessage == nil) || apiStatusCode == "Ok") else {
-                let apiError = Voice.informativeError(describing: errorJSON, response: response, underlyingError: error as NSError?)
+                let apiError = SpeechSynthesizer.informativeError(describing: errorJSON, response: response, underlyingError: error as NSError?)
                 DispatchQueue.main.async {
                     errorHandler(apiError)
                 }
@@ -161,8 +161,8 @@ open class Voice: NSObject {
     /**
      The HTTP URL used to fetch audio from the API.
      */
-    @objc(URLForCalculatingVoiceWithOptions:)
-    open func url(forCalculating options: VoiceOptions) -> URL {
+    @objc(URLForCalculatingSpeechWithOptions:)
+    open func url(forCalculating options: SpeechOptions) -> URL {
         let params = options.params + [
             URLQueryItem(name: "access_token", value: accessToken),
         ]
@@ -207,7 +207,7 @@ open class Voice: NSObject {
         if let error = error {
             userInfo[NSUnderlyingErrorKey] = error
         }
-        return NSError(domain: error?.domain ?? MBVoiceErrorDomain, code: error?.code ?? -1, userInfo: userInfo)
+        return NSError(domain: error?.domain ?? MBSpeechErrorDomain, code: error?.code ?? -1, userInfo: userInfo)
     }
 }
 

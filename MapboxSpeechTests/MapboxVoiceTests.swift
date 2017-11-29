@@ -14,8 +14,8 @@ class MapboxVoicZTests: XCTestCase {
     }
     
     func testExample() {
-        let voice = Voice(accessToken: "pk.foo", host: "api.mapbox.com")
-        let options = VoiceOptions(text: "foo")
+        let voice = SpeechSynthesizer(accessToken: "pk.foo", host: "api.mapbox.com")
+        let options = SpeechOptions(text: "foo")
         options.textType = .text
         options.voiceId = .joanna
         options.outputFormat = .mp3
