@@ -20,7 +20,7 @@ class MapboxVoicZTests: XCTestCase {
         options.voiceId = .joanna
         options.outputFormat = .mp3
         
-        _ = voice.speak(options) { (data: Data?, error: NSError?) in
+        voice.audioData(with: options) { (data: Data?, error: NSError?) in
             XCTAssertNil(error)
             
             XCTAssertNotNil(data)

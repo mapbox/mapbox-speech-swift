@@ -104,7 +104,7 @@ open class SpeechSynthesizer: NSObject {
      - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting audio, cancel this task.
      */
     @objc(speakSpeechWithOptions:completionHandler:)
-    open func speak(_ options: SpeechOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
+    @discardableResult open func audioData(with options: SpeechOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let url = self.url(forCalculating: options)
         let task = dataTask(with: url, completionHandler: { (data) in
             completionHandler(data, nil)

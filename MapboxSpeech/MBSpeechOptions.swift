@@ -71,6 +71,12 @@ open class SpeechOptions: NSObject, NSSecureCoding {
     
     public init(text: String) {
         self.text = text
+        self.textType = .text
+    }
+    
+    public init(ssml: String) {
+        self.text = ssml
+        self.textType = .ssml
     }
     
     public required init?(coder decoder: NSCoder) {
@@ -114,7 +120,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      `SSML` text must be valid `SSML` for request to work.
      */
-    open var textType: TextType = .text
+    var textType: TextType = .text
     
     
     /**
