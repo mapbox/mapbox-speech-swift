@@ -1,5 +1,5 @@
 import XCTest
-@testable import MapboxVoice
+@testable import MapboxSpeech
 
 class MapboxVoicZTests: XCTestCase {
     

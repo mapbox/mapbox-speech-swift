@@ -3,7 +3,7 @@ const polly = new AWS.Polly();
 const fs = require('fs');
 
 const path = require('path');
-const voiceFileLocation = path.join(__dirname, '../', 'MapboxVoice', 'MBVoiceId.swift');
+const voiceFileLocation = path.join(__dirname, '../', 'MapboxSpeech', 'MBVoiceId.swift');
 
 polly.describeVoices({}, (err, data) => {
     if (err) throw (err);

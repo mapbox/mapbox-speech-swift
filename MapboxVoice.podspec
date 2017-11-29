@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.name = "MapboxVoice"
+  s.name = "MapboxSpeech"
   s.version = "0.0.1-pre.1"
 
   s.summary = "Mapbox Voice API wrapper for Swift and Objective-C."
@@ -33,11 +33,11 @@ Pod::Spec.new do |s|
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source_files = "MapboxVoice"
+  s.source_files = "MapboxSpeech"
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.requires_arc = true
-  s.module_name = "MapboxVoice"
+  s.module_name = "MapboxSpeech"
 
 end
