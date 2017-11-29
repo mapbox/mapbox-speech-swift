@@ -128,7 +128,7 @@ open class SpeechSynthesizer: NSObject {
         
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
-        return URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
             
             // Parse error object
             var errorJSON: JSONDictionary = [:]
@@ -156,6 +156,8 @@ open class SpeechSynthesizer: NSObject {
                 completionHandler(data)
             }
         }
+        task.resume()
+        return task
     }
     
     /**

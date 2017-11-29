@@ -22,8 +22,7 @@ class MapboxVoicZTests: XCTestCase {
         
         voice.audioData(with: options) { (data: Data?, error: NSError?) in
             XCTAssertNil(error)
-            
             XCTAssertNotNil(data)
-        }.resume()
+        }
     }
 }
