@@ -1,4 +1,6 @@
 import XCTest
+import OHHTTPStubs
+
 @testable import MapboxSpeech
 
 class MapboxVoicZTests: XCTestCase {

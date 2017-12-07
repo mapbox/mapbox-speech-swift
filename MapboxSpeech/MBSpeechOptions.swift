@@ -128,7 +128,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      Note, `VoiceId` are specific to a `Locale`.
      */
-    @objc open var voiceId: VoiceId = .joanna
+    @objc var voiceId: VoiceId = .joanna
     
     
     /**
@@ -164,7 +164,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
         return params
     }
     
-    @objc func voiceId(for locale: Locale) -> VoiceId {
+    @objc func voiceIdForLocale() -> VoiceId {
         let langs = locale.identifier.components(separatedBy: "-")
         let langCode = langs[0]
         var countryCode = ""
