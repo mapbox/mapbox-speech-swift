@@ -33,7 +33,7 @@ class MapboxVoicZTests: XCTestCase {
                 return OHHTTPStubsResponse(fileAtPath: path!, statusCode: 200, headers: nil)
         }
         
-        let voice = SpeechSynthesizer(accessToken: BogusToken	)
+        let voice = SpeechSynthesizer(accessToken: BogusToken)
         let options = SpeechOptions(text: "hello")
         options.textType = .text
         options.voiceId = .joanna
