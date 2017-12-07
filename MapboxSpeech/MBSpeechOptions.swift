@@ -69,12 +69,12 @@ public enum AudioFormat: UInt, CustomStringConvertible {
 @objc(MBSpeechOptions)
 open class SpeechOptions: NSObject, NSSecureCoding {
     
-    public init(text: String) {
+    @objc public init(text: String) {
         self.text = text
         self.textType = .text
     }
     
-    public init(ssml: String) {
+    @objc public init(ssml: String) {
         self.text = ssml
         self.textType = .ssml
     }
@@ -112,7 +112,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      If `SSML` is provided, `TextType` must be `TextType.ssml`.
      */
-    open var text: String
+    @objc open var text: String
     
     
     /**
@@ -120,7 +120,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      `SSML` text must be valid `SSML` for request to work.
      */
-    var textType: TextType = .text
+    @objc var textType: TextType = .text
     
     
     /**
@@ -128,13 +128,20 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      Note, `VoiceId` are specific to a `Locale`.
      */
-    open var voiceId: VoiceId = .joanna
+    @objc open var voiceId: VoiceId = .joanna
     
     
     /**
      Audio format for outputted audio file.
      */
-    open var outputFormat: AudioFormat = .mp3
+    @objc open var outputFormat: AudioFormat = .mp3
+    
+    /**
+     The locale in which the audio is spoken.
+     
+     By default, the user's system locale will be used to decide upon an appropriate voice.
+     */
+    @objc open var locale: Locale = Locale.autoupdatingCurrent
     
     /**
      The path of the request URL, not including the hostname or any parameters.
@@ -155,5 +162,49 @@ open class SpeechOptions: NSObject, NSSecureCoding {
         ]
         
         return params
+    }
+    
+    @objc func voiceId(for locale: Locale) -> VoiceId {
+        let langs = locale.identifier.components(separatedBy: "-")
+        let langCode = langs[0]
+        var countryCode = ""
+        if langs.count > 1 {
+            countryCode = langs[1]
+        }
+        
+        switch (langCode, countryCode) {
+        case ("de", _):
+            return .marlene
+        case ("en", "CA"):
+            return .joanna
+        case ("en", "GB"):
+            return .brian
+        case ("en", "AU"):
+            return .nicole
+        case ("en", "IN"):
+            return .raveena
+        case ("en", _):
+            return .joanna
+        case ("es", "ES"):
+            return .enrique
+        case ("es", _):
+            return .miguel
+        case ("fr", _):
+            return .celine
+        case ("it", _):
+            return .giorgio
+        case ("nl", _):
+            return .lotte
+        case ("ro", _):
+            return .carmen
+        case ("ru", _):
+            return .maxim
+        case ("sv", _):
+            return .astrid
+        case ("tr", _):
+            return .filiz
+        default:
+            return.joanna
+        }
     }
 }
