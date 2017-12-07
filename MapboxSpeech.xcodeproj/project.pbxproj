@@ -13,6 +13,8 @@
 		C54F535D1F6C754D00BFCC66 /* MapboxSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = C54F534F1F6C754D00BFCC66 /* MapboxSpeech.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C54F53671F6C756B00BFCC66 /* MapboxSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F53661F6C756B00BFCC66 /* MapboxSpeech.swift */; };
 		C54F53691F6C758C00BFCC66 /* MBSpeechOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F53681F6C758C00BFCC66 /* MBSpeechOptions.swift */; };
+		C5569E6A1FD9EA5700D9B7AC /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5569E681FD9E97400D9B7AC /* OHHTTPStubs.framework */; };
+		C5569E6D1FD9EEE100D9B7AC /* hello.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C5569E6C1FD9EEE100D9B7AC /* hello.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 		C54F535C1F6C754D00BFCC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C54F53661F6C756B00BFCC66 /* MapboxSpeech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapboxSpeech.swift; sourceTree = "<group>"; };
 		C54F53681F6C758C00BFCC66 /* MBSpeechOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBSpeechOptions.swift; sourceTree = "<group>"; };
+		C5569E681FD9E97400D9B7AC /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		C5569E6C1FD9EEE100D9B7AC /* hello.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hello.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5569E6A1FD9EA5700D9B7AC /* OHHTTPStubs.framework in Frameworks */,
 				C54F53561F6C754D00BFCC66 /* MapboxSpeech.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +67,7 @@
 				C54F534E1F6C754D00BFCC66 /* MapboxSpeech */,
 				C54F53591F6C754D00BFCC66 /* MapboxSpeechTests */,
 				C54F534D1F6C754D00BFCC66 /* Products */,
+				C5569E671FD9E97300D9B7AC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,10 +95,27 @@
 		C54F53591F6C754D00BFCC66 /* MapboxSpeechTests */ = {
 			isa = PBXGroup;
 			children = (
+				C5569E6B1FD9EED400D9B7AC /* fixtures */,
 				C54F535A1F6C754D00BFCC66 /* MapboxVoiceTests.swift */,
 				C54F535C1F6C754D00BFCC66 /* Info.plist */,
 			);
 			path = MapboxSpeechTests;
+			sourceTree = "<group>";
+		};
+		C5569E671FD9E97300D9B7AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5569E681FD9E97400D9B7AC /* OHHTTPStubs.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C5569E6B1FD9EED400D9B7AC /* fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C5569E6C1FD9EEE100D9B7AC /* hello.mp3 */,
+			);
+			path = fixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5569E6D1FD9EEE100D9B7AC /* hello.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,8 +421,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MapboxSpeechTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Mapbox.MapboxSpeechTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -414,8 +442,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MapboxSpeechTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Mapbox.MapboxSpeechTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
