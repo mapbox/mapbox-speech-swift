@@ -92,10 +92,9 @@ open class SpeechOptions: NSObject, NSSecureCoding {
         }
         self.outputFormat = outputFormat
         
-        guard let voiceId = VoiceId(description: decoder.decodeObject(of: NSString.self, forKey: "voiceId") as String? ?? "") else {
-            return nil
+        if let locale = decoder.decodeObject(of: NSLocale.self, forKey: "locale") as Locale? {
+            self.locale = locale
         }
-        self.voiceId = voiceId
     }
     
     open static var supportsSecureCoding = true
@@ -103,7 +102,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
     public func encode(with coder: NSCoder) {
         coder.encode(text, forKey: "text")
         coder.encode(textType, forKey: "textType")
-        coder.encode(voiceId, forKey: "voiceId")
+        coder.encode(locale, forKey: "locale")
         coder.encode(outputFormat, forKey: "outputFormat")
     }
     
@@ -120,15 +119,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      `SSML` text must be valid `SSML` for request to work.
      */
-    @objc var textType: TextType = .text
-    
-    
-    /**
-     Type of voice to use to say text.
-     
-     Note, `VoiceId` are specific to a `Locale`.
-     */
-    @objc var voiceId: VoiceId = .joanna
+    var textType: TextType
     
     
     /**
@@ -157,54 +148,10 @@ open class SpeechOptions: NSObject, NSSecureCoding {
     internal var params: [URLQueryItem] {
         let params: [URLQueryItem] = [
             URLQueryItem(name: "textType", value: String(describing: textType)),
-            URLQueryItem(name: "voiceId", value: String(describing: voiceId)),
+            URLQueryItem(name: "language", value: locale.identifier),
             URLQueryItem(name: "outputFormat", value: String(describing: outputFormat))
         ]
         
         return params
-    }
-    
-    @objc func voiceIdForLocale() -> VoiceId {
-        let langs = locale.identifier.components(separatedBy: "-")
-        let langCode = langs[0]
-        var countryCode = ""
-        if langs.count > 1 {
-            countryCode = langs[1]
-        }
-        
-        switch (langCode, countryCode) {
-        case ("de", _):
-            return .marlene
-        case ("en", "CA"):
-            return .joanna
-        case ("en", "GB"):
-            return .brian
-        case ("en", "AU"):
-            return .nicole
-        case ("en", "IN"):
-            return .raveena
-        case ("en", _):
-            return .joanna
-        case ("es", "ES"):
-            return .enrique
-        case ("es", _):
-            return .miguel
-        case ("fr", _):
-            return .celine
-        case ("it", _):
-            return .giorgio
-        case ("nl", _):
-            return .lotte
-        case ("ro", _):
-            return .carmen
-        case ("ru", _):
-            return .maxim
-        case ("sv", _):
-            return .astrid
-        case ("tr", _):
-            return .filiz
-        default:
-            return.joanna
-        }
     }
 }

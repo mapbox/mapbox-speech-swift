@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C51F0A841F7C15B2008DD2D3 /* MBVoiceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51F0A831F7C15B2008DD2D3 /* MBVoiceId.swift */; };
 		C54F53561F6C754D00BFCC66 /* MapboxSpeech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54F534C1F6C754D00BFCC66 /* MapboxSpeech.framework */; };
 		C54F535B1F6C754D00BFCC66 /* MapboxVoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F535A1F6C754D00BFCC66 /* MapboxVoiceTests.swift */; };
 		C54F535D1F6C754D00BFCC66 /* MapboxSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = C54F534F1F6C754D00BFCC66 /* MapboxSpeech.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,7 +27,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C51F0A831F7C15B2008DD2D3 /* MBVoiceId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBVoiceId.swift; sourceTree = "<group>"; };
 		C54F534C1F6C754D00BFCC66 /* MapboxSpeech.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapboxSpeech.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54F534F1F6C754D00BFCC66 /* MapboxSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapboxSpeech.h; sourceTree = "<group>"; };
 		C54F53501F6C754D00BFCC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				C54F534F1F6C754D00BFCC66 /* MapboxSpeech.h */,
 				C54F53661F6C756B00BFCC66 /* MapboxSpeech.swift */,
 				C54F53681F6C758C00BFCC66 /* MBSpeechOptions.swift */,
-				C51F0A831F7C15B2008DD2D3 /* MBVoiceId.swift */,
 				C54F53501F6C754D00BFCC66 /* Info.plist */,
 			);
 			path = MapboxSpeech;
@@ -232,7 +229,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54F53691F6C758C00BFCC66 /* MBSpeechOptions.swift in Sources */,
-				C51F0A841F7C15B2008DD2D3 /* MBVoiceId.swift in Sources */,
 				C54F53671F6C756B00BFCC66 /* MapboxSpeech.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

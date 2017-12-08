@@ -21,7 +21,7 @@ class MapboxVoicZTests: XCTestCase {
         
         let queryParams: [String: String?] = [
             "textType": "text",
-            "voiceId": "Joanna",
+            "language": "en_US",
             "outputFormat": "mp3",
             "access_token": BogusToken,
             ]
@@ -36,7 +36,6 @@ class MapboxVoicZTests: XCTestCase {
         let voice = SpeechSynthesizer(accessToken: BogusToken)
         let options = SpeechOptions(text: "hello")
         options.textType = .text
-        options.voiceId = .joanna
         options.outputFormat = .mp3
         
         var audio: Data?

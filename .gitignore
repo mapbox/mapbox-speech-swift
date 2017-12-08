@@ -33,3 +33,5 @@ xcuserdata
 
 # Node
 /scripts/node_modules/
+
+/Carthage
