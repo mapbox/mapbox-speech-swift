@@ -35,3 +35,10 @@ xcuserdata
 /scripts/node_modules/
 
 /Carthage
+
+xcuserdata
+*.xccheckout
+*.xcworkspacedata
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
