@@ -35,7 +35,6 @@ class MapboxVoicZTests: XCTestCase {
         
         let voice = SpeechSynthesizer(accessToken: BogusToken)
         let options = SpeechOptions(text: "hello")
-        options.textType = .text
         options.outputFormat = .mp3
         
         var audio: Data?
