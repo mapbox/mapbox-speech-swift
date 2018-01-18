@@ -119,7 +119,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      `SSML` text must be valid `SSML` for request to work.
      */
-    var textType: TextType
+    @objc let textType: TextType
     
     
     /**
