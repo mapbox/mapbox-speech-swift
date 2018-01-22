@@ -125,6 +125,11 @@ open class SpeechOptions: NSObject, NSSecureCoding {
         if let locale = decoder.decodeObject(of: NSLocale.self, forKey: "locale") as Locale? {
             self.locale = locale
         }
+        
+        guard let speechGender = SpeechGender(description: decoder.decodeObject(of: NSString.self, forKey: "speechGender") as String? ?? "") else {
+            return nil
+        }
+        self.speechGender = speechGender
     }
     
     open static var supportsSecureCoding = true
