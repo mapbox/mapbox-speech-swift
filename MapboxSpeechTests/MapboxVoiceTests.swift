@@ -23,6 +23,7 @@ class MapboxVoicZTests: XCTestCase {
             "textType": "text",
             "language": "en_US",
             "outputFormat": "mp3",
+            "gender": "female",
             "access_token": BogusToken,
             ]
         
@@ -36,6 +37,7 @@ class MapboxVoicZTests: XCTestCase {
         let voice = SpeechSynthesizer(accessToken: BogusToken)
         let options = SpeechOptions(text: "hello")
         options.outputFormat = .mp3
+        options.speechGender = .female
         
         var audio: Data?
         let task = voice.audioData(with: options) { (data: Data?, error: NSError?) in

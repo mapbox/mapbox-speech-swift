@@ -66,6 +66,36 @@ public enum AudioFormat: UInt, CustomStringConvertible {
     }
 }
 
+@objc(MBSpeechGender)
+public enum SpeechGender: UInt, CustomStringConvertible {
+    
+    case female
+    
+    case male
+    
+    public init?(description: String) {
+        let gender: SpeechGender
+        switch description {
+        case "female":
+            gender = .female
+        case "male":
+            gender = .male
+        default:
+            gender = .female
+        }
+        self.init(rawValue: gender.rawValue)
+    }
+    
+    public var description: String {
+        switch self {
+        case .female:
+            return "female"
+        case .male:
+            return "male"
+        }
+    }
+}
+
 @objc(MBSpeechOptions)
 open class SpeechOptions: NSObject, NSSecureCoding {
     
@@ -104,6 +134,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
         coder.encode(textType, forKey: "textType")
         coder.encode(locale, forKey: "locale")
         coder.encode(outputFormat, forKey: "outputFormat")
+        coder.encode(speechGender, forKey: "speechGender")
     }
     
     /**
@@ -135,6 +166,13 @@ open class SpeechOptions: NSObject, NSSecureCoding {
     @objc open var locale: Locale = Locale.autoupdatingCurrent
     
     /**
+     Gender of voice speeking text.
+     
+     Note: not all languages have both genders.
+     */
+    @objc open var speechGender: SpeechGender = .female
+    
+    /**
      The path of the request URL, not including the hostname or any parameters.
      */
     internal var path: String {
@@ -149,7 +187,8 @@ open class SpeechOptions: NSObject, NSSecureCoding {
         let params: [URLQueryItem] = [
             URLQueryItem(name: "textType", value: String(describing: textType)),
             URLQueryItem(name: "language", value: locale.identifier),
-            URLQueryItem(name: "outputFormat", value: String(describing: outputFormat))
+            URLQueryItem(name: "outputFormat", value: String(describing: outputFormat)),
+            URLQueryItem(name: "gender", value: String(describing: speechGender))
         ]
         
         return params
