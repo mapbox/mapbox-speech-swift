@@ -73,6 +73,8 @@ public enum SpeechGender: UInt, CustomStringConvertible {
     
     case male
     
+    case neuter
+    
     public init?(description: String) {
         let gender: SpeechGender
         switch description {
@@ -81,7 +83,7 @@ public enum SpeechGender: UInt, CustomStringConvertible {
         case "male":
             gender = .male
         default:
-            gender = .female
+            gender = .neuter
         }
         self.init(rawValue: gender.rawValue)
     }
@@ -92,6 +94,8 @@ public enum SpeechGender: UInt, CustomStringConvertible {
             return "female"
         case .male:
             return "male"
+        case .neuter:
+            return "neuter"
         }
     }
 }
@@ -175,7 +179,7 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      
      Note: not all languages have both genders.
      */
-    @objc open var speechGender: SpeechGender = .female
+    @objc open var speechGender: SpeechGender = .neuter
     
     /**
      The path of the request URL, not including the hostname or any parameters.
@@ -189,12 +193,15 @@ open class SpeechOptions: NSObject, NSSecureCoding {
      An array of URL parameters to include in the request URL.
      */
     internal var params: [URLQueryItem] {
-        let params: [URLQueryItem] = [
+        var params: [URLQueryItem] = [
             URLQueryItem(name: "textType", value: String(describing: textType)),
             URLQueryItem(name: "language", value: locale.identifier),
-            URLQueryItem(name: "outputFormat", value: String(describing: outputFormat)),
-            URLQueryItem(name: "gender", value: String(describing: speechGender))
+            URLQueryItem(name: "outputFormat", value: String(describing: outputFormat))
         ]
+        
+        if speechGender != .neuter {
+            params.append(URLQueryItem(name: "gender", value: String(describing: speechGender)))
+        }
         
         return params
     }
