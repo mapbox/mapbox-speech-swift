@@ -4,7 +4,7 @@ import OHHTTPStubs
 
 let BogusToken = "pk.foo-bar"
 
-class MapboxVoicZTests: XCTestCase {
+class MapboxVoiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
