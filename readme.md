@@ -1,5 +1,7 @@
 # MapboxSpeech.swift
 
+A module for using the Mapbox Speech API specifically tuned for the [Mapbox Navigation SDK](https://www.mapbox.com/navigation/).
+
 ## Getting started
 
 Specify the following dependency in your [Carthage](https://github.com/Carthage/Carthage) Cartfile:

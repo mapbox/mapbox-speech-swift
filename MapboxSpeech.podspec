@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.summary = "A speech synthesizer built on AWS Polly for Swift and Objective-C."
 
    s.description  = <<-DESC
-   MapboxSpeech makes it easy to connect your iOS, macOS, tvOS, or watchOS application to the Mapbox Voice API. Quickly get audio files from a text string.
+   MapboxSpeech makes it easy to connect your iOS, macOS, tvOS, or watchOS application to the Mapbox Speech API. Quickly get audio files from a text string.
                    DESC
   s.homepage = "https://www.mapbox.com/navigation-sdk/"
   #s.documentation_url = "https://www.mapbox.com/mapbox-navigation-ios/voice/"
