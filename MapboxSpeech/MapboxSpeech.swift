@@ -185,9 +185,6 @@ open class SpeechSynthesizer: NSObject {
             var failureReason: String? = nil
             var recoverySuggestion: String? = nil
             switch (response.statusCode, apiStatusCode ?? "") {
-            case (404, "ProfileNotFound"):
-                failureReason = "Unrecognized profile identifier."
-                recoverySuggestion = "Make sure the profileIdentifier option is set to one of the provided constants."
             case (429, _):
                 if let timeInterval = response.rateLimitInterval, let maximumCountOfRequests = response.rateLimit {
                     let intervalFormatter = DateComponentsFormatter()
