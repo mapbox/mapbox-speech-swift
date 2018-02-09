@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source = { :git => "https://github.com/mapbox/mapbox-voice-swift.git", :branch => "master" }
+  s.source = { :git => "https://github.com/mapbox/mapbox-voice-swift.git", :tag => "v#{s.version.to_s}" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
