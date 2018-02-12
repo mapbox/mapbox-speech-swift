@@ -1,4 +1,4 @@
-# MapboxSpeech.swift
+# MapboxSpeech
 
 A module for using the Mapbox Speech API specifically tuned for the [Mapbox Navigation SDK](https://www.mapbox.com/navigation/).
 
