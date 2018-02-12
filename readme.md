@@ -7,13 +7,13 @@ A module for using the Mapbox Speech API specifically tuned for the [Mapbox Navi
 Specify the following dependency in your [Carthage](https://github.com/Carthage/Carthage) Cartfile:
 
 ```cartfile
-github "mapbox/MapboxSpeech.swift" ~> 0.1
+github "mapbox/mapbox-speech-swift" ~> 0.1
 ```
 
 Or in your [CocoaPods](http://cocoapods.org/) Podfile:
 
 ```podspec
-pod 'MapboxSpeech.swift', '~> 0.1'
+pod 'MapboxSpeech', '~> 0.1'
 ```
 
 Then `import MapboxSpeech` or `@import MapboxSpeech;`.
