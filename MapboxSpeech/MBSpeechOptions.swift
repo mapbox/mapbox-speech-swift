@@ -35,19 +35,11 @@ public enum AudioFormat: UInt, CustomStringConvertible {
 
     case mp3
     
-    case oggVorbis
-    
-    case pcm
-    
     public init?(description: String) {
         let format: AudioFormat
         switch description {
         case "mp3":
             format = .mp3
-        case "ogg_vorbis":
-            format = .oggVorbis
-        case "pcm":
-            format = .pcm
         default:
             return nil
         }
@@ -58,10 +50,6 @@ public enum AudioFormat: UInt, CustomStringConvertible {
         switch self {
         case .mp3:
             return "mp3"
-        case .oggVorbis:
-            return "ogg_vorbis"
-        case .pcm:
-            return "pcm"
         }
     }
 }
