@@ -38,6 +38,7 @@ class MapboxVoiceTests: XCTestCase {
         let options = SpeechOptions(text: "hello")
         options.outputFormat = .mp3
         options.speechGender = .female
+        options.locale = Locale(identifier: "en_US")
         
         var audio: Data?
         let task = voice.audioData(with: options) { (data: Data?, error: NSError?) in
