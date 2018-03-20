@@ -53,7 +53,11 @@ let userAgent: String = {
     return components.joined(separator: " ")
 }()
 
-
+/**
+ A `SpeechSynthesizer` object converts text into spoken audio. Unlike `AVSpeechSynthesizer`, a `SpeechSynthesizer` object produces audio by sending an HTTP request to the Mapbox Voice API, which produces more natural-sounding audio in various languages. With a speech synthesizer object, you can asynchronously generate audio data based on the `SpeechOptions` object you provide, or you can get the URL used to make this request.
+ 
+ Use `AVAudioPlayer` to play the audio that a speech synthesizer object produces.
+ */
 @objc(MBSpeechSynthesizer)
 open class SpeechSynthesizer: NSObject {
     
@@ -61,7 +65,12 @@ open class SpeechSynthesizer: NSObject {
     
     // MARK: Creating a Speech Object
     
-    @objc(sharedSpeech)
+    /**
+     The shared speech synthesizer object.
+     
+     To use this object, specify a Mapbox [access token](https://www.mapbox.com/help/define-access-token/) in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
+     */
+    @objc(sharedSpeechSynthesizer)
     open static let shared = SpeechSynthesizer(accessToken: nil)
     
     /// The API endpoint to request the audio from.
@@ -70,7 +79,12 @@ open class SpeechSynthesizer: NSObject {
     /// The Mapbox access token to associate the request with.
     internal let accessToken: String
     
-    
+    /**
+     Initializes a newly created speech synthesizer object with an optional access token and host.
+     
+     - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the speech synthesizer object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
+     - parameter host: An optional hostname to the server API. The Mapbox Voice API endpoint is used by default.
+     */
     @objc public init(accessToken: String?, host: String?) {
         let accessToken = accessToken ?? defaultAccessToken
         assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Speech(accessToken:host:) initializer.")
@@ -84,9 +98,9 @@ open class SpeechSynthesizer: NSObject {
     }
     
     /**
-     Initializes a newly created Speech object with an optional access token.
+     Initializes a newly created speech synthesizer object with an optional access token.
      
-     - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the Speech object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
+     - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the speech synthesizer object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      */
     @objc public convenience init(accessToken: String?) {
         self.init(accessToken: accessToken, host: nil)
@@ -103,9 +117,9 @@ open class SpeechSynthesizer: NSObject {
      - parameter completionHandler: The closure (block) to call with the resulting audio. This closure is executed on the application’s main thread.
      - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting audio, cancel this task.
      */
-    @objc(speakSpeechWithOptions:completionHandler:)
+    @objc(audioDataWithOptions:completionHandler:)
     @discardableResult open func audioData(with options: SpeechOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
-        let url = self.url(forCalculating: options)
+        let url = self.url(forSynthesizing: options)
         let task = dataTask(with: url, completionHandler: { (data) in
             completionHandler(data, nil)
         }) { (error) in
@@ -163,8 +177,8 @@ open class SpeechSynthesizer: NSObject {
     /**
      The HTTP URL used to fetch audio from the API.
      */
-    @objc(URLForCalculatingSpeechWithOptions:)
-    open func url(forCalculating options: SpeechOptions) -> URL {
+    @objc(URLForSynthesizingSpeechWithOptions:)
+    open func url(forSynthesizing options: SpeechOptions) -> URL {
         let params = options.params + [
             URLQueryItem(name: "access_token", value: accessToken),
         ]
