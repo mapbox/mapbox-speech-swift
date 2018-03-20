@@ -58,19 +58,15 @@ let userAgent: String = {
 open class SpeechSynthesizer: NSObject {
     
     public typealias CompletionHandler = (_ data: Data?, _ error: NSError?) -> Void
-    
-    // MARK: Creating a Speech Object
-    
-    @objc(sharedSpeech)
-    open static let shared = SpeechSynthesizer(accessToken: nil)
-    
+        
     /// The API endpoint to request the audio from.
     internal var apiEndpoint: URL
     
     /// The Mapbox access token to associate the request with.
     internal let accessToken: String
-    
-    
+
+    // MARK: Creating a Speech Object
+
     @objc public init(accessToken: String?, host: String?) {
         let accessToken = accessToken ?? defaultAccessToken
         assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Speech(accessToken:host:) initializer.")
