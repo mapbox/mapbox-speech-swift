@@ -73,7 +73,7 @@ speechSynthesizer.audioData(with: options) { (data: Data?, error: NSError?) in
 ```objc
 // main.m
 
-MBSpeechOptions *options = [[MBSpeechOptions alloc] initWithText: "hello, my name is Bobby")
+MBSpeechOptions *options = [[MBSpeechOptions alloc] initWithText: "hello, my name is Bobby"];
 [speechSynthesizer speakSpeechWithOptions:options completionHandler:^(NSData * _Nullable data,
                                                                       NSError * _Nullable error) {
     if (error) {
