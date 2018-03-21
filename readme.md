@@ -51,7 +51,7 @@ let speechSynthesizer = SpeechSynthesizer.shared
 
 ```objc
 // main.m
-MBSpeechSynthesizer *speechSynthesizer = [MBSpeechSynthesizer sharedSpeech];
+MBSpeechSynthesizer *speechSynthesizer = [MBSpeechSynthesizer sharedSpeechSynthesizer];
 ```
 
 With the directions object in hand, construct a SpeechOptions or MBSpeechOptions object and pass it into the `SpeechSynthesizer.audioData(with:completionHandler:)` method.
@@ -74,8 +74,8 @@ speechSynthesizer.audioData(with: options) { (data: Data?, error: NSError?) in
 // main.m
 
 MBSpeechOptions *options = [[MBSpeechOptions alloc] initWithText: "hello, my name is Bobby"];
-[speechSynthesizer speakSpeechWithOptions:options completionHandler:^(NSData * _Nullable data,
-                                                                      NSError * _Nullable error) {
+[speechSynthesizer audioDataWithOptions:options completionHandler:^(NSData * _Nullable data,
+                                                                    NSError * _Nullable error) {
     if (error) {
         NSLog(@"Error synthesizing speech: %@", error);
         return;
