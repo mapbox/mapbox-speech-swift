@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
    s.description  = <<-DESC
    MapboxSpeech makes it easy to connect your iOS, macOS, tvOS, or watchOS application to the Mapbox Speech API. Quickly get audio files from a text string.
                    DESC
-  s.homepage = "https://www.mapbox.com/navigation-sdk/"
+  s.homepage = "https://www.mapbox.com/ios-sdk/navigation/"
   #s.documentation_url = "https://www.mapbox.com/mapbox-navigation-ios/voice/"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
