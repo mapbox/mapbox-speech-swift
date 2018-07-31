@@ -71,7 +71,7 @@ open class SpeechSynthesizer: NSObject {
      To use this object, specify a Mapbox [access token](https://www.mapbox.com/help/define-access-token/) in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      */
     @objc(sharedSpeechSynthesizer)
-    open static let shared = SpeechSynthesizer(accessToken: nil)
+    public static let shared = SpeechSynthesizer(accessToken: nil)
     
     /// The API endpoint to request the audio from.
     internal var apiEndpoint: URL
