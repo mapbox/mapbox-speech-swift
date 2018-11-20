@@ -74,10 +74,10 @@ open class SpeechSynthesizer: NSObject {
     public static let shared = SpeechSynthesizer(accessToken: nil)
     
     /// The API endpoint to request the audio from.
-    internal var apiEndpoint: URL
+    @objc public private(set) var apiEndpoint: URL
     
     /// The Mapbox access token to associate the request with.
-    internal let accessToken: String
+    @objc public let accessToken: String
     
     /**
      Initializes a newly created speech synthesizer object with an optional access token and host.
