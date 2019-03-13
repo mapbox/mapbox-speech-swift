@@ -140,8 +140,9 @@ open class SpeechOptions: NSObject, Codable {
      The path of the request URL, not including the hostname or any parameters.
      */
     internal var path: String {
-        let disallowedCharacters = (CharacterSet(charactersIn: "\\!*'();:@&=+$,/<>?%#[]\" ").inverted)
-        return "voice/v1/speak/\(text.addingPercentEncoding(withAllowedCharacters: disallowedCharacters)!)"
+        var characterSet = CharacterSet.urlPathAllowed
+        characterSet.remove(charactersIn: "/")
+        return "voice/v1/speak/\(text.addingPercentEncoding(withAllowedCharacters: characterSet)!)"
     }
     
     /**
