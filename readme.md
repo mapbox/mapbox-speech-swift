@@ -7,7 +7,7 @@ Mapbox Speech connects your iOS application to the Mapbox Voice API. Take turn i
 Specify the following dependency in your [Carthage](https://github.com/Carthage/Carthage) Cartfile:
 
 ```cartfile
-github "mapbox/mapbox-speech-swift" ~> 0.1.0
+github "mapbox/mapbox-speech-swift" ~> 0.1
 ```
 
 Or in your [CocoaPods](http://cocoapods.org/) Podfile:

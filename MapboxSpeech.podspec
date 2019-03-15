@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.name = "MapboxSpeech"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.summary = "A speech synthesizer built on AWS Polly for Swift and Objective-C."
 
