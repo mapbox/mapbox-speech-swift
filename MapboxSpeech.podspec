@@ -5,12 +5,12 @@ Pod::Spec.new do |s|
   s.name = "MapboxSpeech"
   s.version = "0.1.1"
 
-  s.summary = "A speech synthesizer built on AWS Polly for Swift and Objective-C."
+  s.summary = "A speech synthesizer built on Amazon Polly for Swift and Objective-C."
 
    s.description  = <<-DESC
-   MapboxSpeech makes it easy to connect your iOS, macOS, tvOS, or watchOS application to the Mapbox Speech API. Quickly get audio files from a text string.
+   MapboxSpeech makes it easy to connect your iOS, macOS, tvOS, or watchOS application to the Mapbox Voice API. Quickly get audio files from a text string.
                    DESC
-  s.homepage = "https://www.mapbox.com/ios-sdk/navigation/"
+  s.homepage = "https://docs.mapbox.com/ios/navigation/"
   #s.documentation_url = "https://www.mapbox.com/mapbox-navigation-ios/voice/"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -25,11 +25,14 @@ Pod::Spec.new do |s|
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.ios.deployment_target = "8.0"
+  s.osx.deployment_target = "10.10"
+  s.tvos.deployment_target = "9.0"
+  s.watchos.deployment_target = "2.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source = { :git => "https://github.com/mapbox/mapbox-voice-swift.git", :tag => "v#{s.version.to_s}" }
+  s.source = { :git => "https://github.com/mapbox/mapbox-speech-swift.git", :tag => "v#{s.version.to_s}" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
