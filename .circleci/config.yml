@@ -17,13 +17,31 @@ step-library:
       run:
         name: Install Dependencies
         command: |
-          carthage bootstrap --platform ios
+          carthage bootstrap
     
     - &ios-build-test
       run:
-        name: Build and Test
+        name: Build and Test for iOS
         command: |
           xcodebuild -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=12.1,name=iPhone X' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech iOS" clean build test
+    
+    - &macos-build-test
+      run:
+        name: Build and Test for macOS
+        command: |
+          xcodebuild -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech Mac" clean build test
+    
+    - &tvos-build-test
+      run:
+        name: Build and Test for tvOS
+        command: |
+          xcodebuild -destination 'platform=tvOS Simulator,OS=12.1,name=Apple TV 4K (at 1080p)' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech tvOS" clean build test
+    
+    - &watchos-build
+      run:
+        name: Build for watchOS
+        command: |
+          xcodebuild -destination 'platform=watchOS Simulator,OS=5.1,name=Apple Watch Series 3 - 42mm' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech watchOS" clean build
 
 jobs:
   ios-build-test:
@@ -36,3 +54,6 @@ jobs:
       - *prepare
       - *install-dependencies
       - *ios-build-test
+      - *macos-build-test
+      - *tvos-build-test
+      - *watchos-build
