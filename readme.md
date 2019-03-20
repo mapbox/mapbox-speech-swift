@@ -1,6 +1,6 @@
 # Mapbox Speech
 
-Mapbox Speech connects your iOS or macOS application to the Mapbox Voice API. Take turn instructions from the [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) and read them aloud naturally in multiple languages. This library is specifically designed to work with [MapboxDirections.swift](https://github.com/mapbox/MapboxDirections.swift/) as part of the [Mapbox Navigation SDK for iOS](https://github.com/mapbox/mapbox-navigation-ios/).
+Mapbox Speech connects your iOS, macOS, or tvOS application to the Mapbox Voice API. Take turn instructions from the [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) and read them aloud naturally in multiple languages. This library is specifically designed to work with [MapboxDirections.swift](https://github.com/mapbox/MapboxDirections.swift/) as part of the [Mapbox Navigation SDK for iOS](https://github.com/mapbox/mapbox-navigation-ios/).
 
 ## Getting started
 
