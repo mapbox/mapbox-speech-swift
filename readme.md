@@ -1,6 +1,6 @@
 # Mapbox Speech
 
-Mapbox Speech connects your iOS application to the Mapbox Voice API. Take turn instructions from the [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) and read them aloud naturally in multiple languages. This library is specifically designed to work with [MapboxDirections.swift](https://github.com/mapbox/MapboxDirections.swift/) as part of the [Mapbox Navigation SDK for iOS](https://github.com/mapbox/mapbox-navigation-ios/).
+Mapbox Speech connects your iOS or macOS application to the Mapbox Voice API. Take turn instructions from the [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) and read them aloud naturally in multiple languages. This library is specifically designed to work with [MapboxDirections.swift](https://github.com/mapbox/MapboxDirections.swift/) as part of the [Mapbox Navigation SDK for iOS](https://github.com/mapbox/mapbox-navigation-ios/).
 
 ## Getting started
 
@@ -54,6 +54,11 @@ let speechSynthesizer = SpeechSynthesizer.shared
 MBSpeechSynthesizer *speechSynthesizer = [MBSpeechSynthesizer sharedSpeechSynthesizer];
 ```
 
+```applescript
+// AppDelegate.applescript
+set theSpeechSynthesizer to sharedSpeechSynthesizer of MBSpeechSynthesizer of the current application
+```
+
 With the directions object in hand, construct a SpeechOptions or MBSpeechOptions object and pass it into the `SpeechSynthesizer.audioData(with:completionHandler:)` method.
 
 ```swift
@@ -73,7 +78,7 @@ speechSynthesizer.audioData(with: options) { (data: Data?, error: NSError?) in
 ```objc
 // main.m
 
-MBSpeechOptions *options = [[MBSpeechOptions alloc] initWithText: "hello, my name is Bobby"];
+MBSpeechOptions *options = [[MBSpeechOptions alloc] initWithText:"hello, my name is Bobby"];
 [speechSynthesizer audioDataWithOptions:options completionHandler:^(NSData * _Nullable data,
                                                                     NSError * _Nullable error) {
     if (error) {
@@ -83,4 +88,16 @@ MBSpeechOptions *options = [[MBSpeechOptions alloc] initWithText: "hello, my nam
     
     // Do something with the audio!
 }];
+```
+
+```applescript
+// AppDelegate.applescript
+
+set theOptions to alloc of MBSpeechOptions of the current application
+tell theOptions to initWithText:"hello, my name is Bobby"
+
+set theURL to theSpeechSynthesizer's URLForSynthesizingSpeechWithOptions:theOptions
+set theData to the current application's NSData's dataWithContentsOfURL:theURL
+
+// Do something with the audio!
 ```
