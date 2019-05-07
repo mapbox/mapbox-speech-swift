@@ -53,6 +53,11 @@ let userAgent: String = {
     return components.joined(separator: " ")
 }()
 
+var skuToken: String? = {
+    guard let mbx: AnyClass = NSClassFromString("MBXSKUToken") else { return nil }
+    return mbx.value(forKeyPath: "skuToken") as? String
+}()
+
 /**
  A `SpeechSynthesizer` object converts text into spoken audio. Unlike `AVSpeechSynthesizer`, a `SpeechSynthesizer` object produces audio by sending an HTTP request to the Mapbox Voice API, which produces more natural-sounding audio in various languages. With a speech synthesizer object, you can asynchronously generate audio data based on the `SpeechOptions` object you provide, or you can get the URL used to make this request.
  
@@ -179,9 +184,13 @@ open class SpeechSynthesizer: NSObject {
      */
     @objc(URLForSynthesizingSpeechWithOptions:)
     open func url(forSynthesizing options: SpeechOptions) -> URL {
-        let params = options.params + [
-            URLQueryItem(name: "access_token", value: accessToken),
-        ]
+        var params = options.params
+        
+        params += [URLQueryItem(name: "access_token", value: accessToken)]
+        
+        if let skuToken = skuToken {
+            params += [URLQueryItem(name: "sku", value: skuToken)]
+        }
         
         let unparameterizedURL = URL(string: options.path, relativeTo: apiEndpoint)!
         var components = URLComponents(url: unparameterizedURL, resolvingAgainstBaseURL: true)!
