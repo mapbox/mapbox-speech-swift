@@ -5,14 +5,9 @@ workflows:
   default:
     jobs:
       - ios-build-test
+      - spm
       
 step-library:
-    - &prepare
-      run:
-        name: Prepare
-        command: |
-          if [ $(carthage outdated | grep -cF "latest Carthage version") -eq 0 ]; then brew update && brew upgrade carthage; fi
-    
     - &install-dependencies
       run:
         name: Install Dependencies
@@ -23,7 +18,7 @@ step-library:
       run:
         name: Build and Test for iOS
         command: |
-          xcodebuild -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=12.1,name=iPhone X' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech iOS" clean build test
+          xcodebuild -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=12.2,name=iPhone X' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech iOS" clean build test
     
     - &macos-build-test
       run:
@@ -35,25 +30,30 @@ step-library:
       run:
         name: Build and Test for tvOS
         command: |
-          xcodebuild -destination 'platform=tvOS Simulator,OS=12.1,name=Apple TV 4K (at 1080p)' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech tvOS" clean build test
+          xcodebuild -destination 'platform=tvOS Simulator,OS=12.2,name=Apple TV 4K (at 1080p)' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech tvOS" clean build test
     
     - &watchos-build
       run:
         name: Build for watchOS
         command: |
-          xcodebuild -destination 'platform=watchOS Simulator,OS=5.1,name=Apple Watch Series 3 - 42mm' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech watchOS" clean build
+          xcodebuild -destination 'platform=watchOS Simulator,OS=5.2,name=Apple Watch Series 3 - 42mm' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech watchOS" clean build
 
 jobs:
   ios-build-test:
     macos:
-      xcode: "10.1.0"
+      xcode: "10.2.1"
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 0
     steps:
       - checkout
-      - *prepare
       - *install-dependencies
       - *ios-build-test
       - *macos-build-test
       - *tvos-build-test
       - *watchos-build
+  spm:
+    macos:
+      xcode: "10.2.1"
+    steps:
+      - checkout
+      - run: swift build
