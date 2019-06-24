@@ -91,7 +91,7 @@ MBSpeechOptions *options = [[MBSpeechOptions alloc] initWithText:"hello, my name
 ```
 
 ```applescript
-// AppDelegate.applescript
+-- AppDelegate.applescript
 
 set theOptions to alloc of MBSpeechOptions of the current application
 tell theOptions to initWithText:"hello, my name is Bobby"
@@ -99,5 +99,5 @@ tell theOptions to initWithText:"hello, my name is Bobby"
 set theURL to theSpeechSynthesizer's URLForSynthesizingSpeechWithOptions:theOptions
 set theData to the current application's NSData's dataWithContentsOfURL:theURL
 
-// Do something with the audio!
+-- Do something with the audio!
 ```
