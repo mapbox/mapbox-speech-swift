@@ -7,13 +7,13 @@ Mapbox Speech connects your iOS, macOS, tvOS, or watchOS application to the Mapb
 Specify the following dependency in your [Carthage](https://github.com/Carthage/Carthage) Cartfile:
 
 ```cartfile
-github "mapbox/mapbox-speech-swift" ~> 0.1
+github "mapbox/mapbox-speech-swift" ~> 0.2
 ```
 
 Or in your [CocoaPods](http://cocoapods.org/) Podfile:
 
 ```podspec
-pod 'MapboxSpeech', '~> 0.1.0'
+pod 'MapboxSpeech', '~> 0.2.0'
 ```
 
 Then `import MapboxSpeech` or `@import MapboxSpeech;`.
