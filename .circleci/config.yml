@@ -6,6 +6,7 @@ workflows:
     jobs:
       - ios-build-test
       - spm
+      - pod
       
 step-library:
     - &install-dependencies
@@ -57,3 +58,17 @@ jobs:
     steps:
       - checkout
       - run: swift build
+  pod:
+    macos:
+      xcode: "10.2.1"
+    steps:
+      - checkout
+      - run: 
+          name: ""
+          working_directory: Tests/PodTests
+          command: | 
+            brew install xcodegen
+            xcodegen generate
+            bundle install
+            bundle exec pod install
+            xcodebuild -workspace PodTest.xcworkspace -scheme PodTest -destination 'platform=iOS Simulator,OS=latest,name=iPhone X' build
