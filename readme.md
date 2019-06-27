@@ -16,6 +16,12 @@ Or in your [CocoaPods](http://cocoapods.org/) Podfile:
 pod 'MapboxSpeech', '~> 0.2.0'
 ```
 
+Or in your [Swift Package Manager](https://swift.org/package-manager/) Package.swift:
+
+```swift
+.package(url: "https://github.com/mapbox/mapbox-speech-swift.git", from: "0.2.0")
+```
+
 Then `import MapboxSpeech` or `@import MapboxSpeech;`.
 
 ## Usage
