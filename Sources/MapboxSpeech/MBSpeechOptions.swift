@@ -1,104 +1,29 @@
 import Foundation
 
-@objc(MBTextType)
-public enum TextType: UInt, CustomStringConvertible, Codable {
-    
+public enum TextType: String, Codable {
     case text
-    
     case ssml
-    
-    public init?(description: String) {
-        let type: TextType
-        switch description {
-        case "text":
-            type = .text
-        case "ssml":
-            type = .ssml
-        default:
-            return nil
-        }
-        self.init(rawValue: type.rawValue)
-    }
-    
-    public var description: String {
-        switch self {
-        case .text:
-            return "text"
-        case .ssml:
-            return "ssml"
-        }
-    }
 }
 
-@objc(MBAudioFormat)
-public enum AudioFormat: UInt, CustomStringConvertible, Codable {
-
+public enum AudioFormat: String, Codable {
     case mp3
-    
-    public init?(description: String) {
-        let format: AudioFormat
-        switch description {
-        case "mp3":
-            format = .mp3
-        default:
-            return nil
-        }
-        self.init(rawValue: format.rawValue)
-    }
-    
-    public var description: String {
-        switch self {
-        case .mp3:
-            return "mp3"
-        }
-    }
 }
 
-@objc(MBSpeechGender)
-public enum SpeechGender: UInt, CustomStringConvertible, Codable {
-    
+public enum SpeechGender: String, Codable {
     case female
-    
     case male
-    
     case neuter
-    
-    public init?(description: String) {
-        let gender: SpeechGender
-        switch description {
-        case "female":
-            gender = .female
-        case "male":
-            gender = .male
-        default:
-            gender = .neuter
-        }
-        self.init(rawValue: gender.rawValue)
-    }
-    
-    public var description: String {
-        switch self {
-        case .female:
-            return "female"
-        case .male:
-            return "male"
-        case .neuter:
-            return "neuter"
-        }
-    }
 }
 
-@objc(MBSpeechOptions)
-open class SpeechOptions: NSObject, Codable {
-    
-    @objc public init(text: String) {
+open class SpeechOptions: Codable {
+    public init(text: String) {
         self.text = text
-        self.textType = .text
+        textType = .text
     }
     
-    @objc public init(ssml: String) {
+    public init(ssml: String) {
         self.text = ssml
-        self.textType = .ssml
+        textType = .ssml
     }
     
     /**
@@ -106,35 +31,33 @@ open class SpeechOptions: NSObject, Codable {
      
      If `SSML` is provided, `TextType` must be `TextType.ssml`.
      */
-    @objc open var text: String
-    
+    open var text: String
     
     /**
      Type of text to synthesize.
      
      `SSML` text must be valid `SSML` for request to work.
      */
-    @objc let textType: TextType
-    
+    let textType: TextType
     
     /**
      Audio format for outputted audio file.
      */
-    @objc open var outputFormat: AudioFormat = .mp3
+    open var outputFormat: AudioFormat = .mp3
     
     /**
      The locale in which the audio is spoken.
      
      By default, the user's system locale will be used to decide upon an appropriate voice.
      */
-    @objc open var locale: Locale = Locale.autoupdatingCurrent
+    open var locale: Locale = .autoupdatingCurrent
     
     /**
      Gender of voice speeking text.
      
      Note: not all languages have both genders.
      */
-    @objc open var speechGender: SpeechGender = .neuter
+    open var speechGender: SpeechGender = .neuter
     
     /**
      The path of the request URL, not including the hostname or any parameters.

@@ -2,9 +2,6 @@ import Foundation
 
 typealias JSONDictionary = [String: Any]
 
-/// Indicates that an error occurred in MapboxSpeech.
-public let MBSpeechErrorDomain = "MBSpeechErrorDomain"
-
 /// The Mapbox access token specified in the main application bundle’s Info.plist.
 let defaultAccessToken = Bundle.main.object(forInfoDictionaryKey: "MGLMapboxAccessToken") as? String
 
@@ -64,10 +61,8 @@ var skuToken: String? {
  
  Use `AVAudioPlayer` to play the audio that a speech synthesizer object produces.
  */
-@objc(MBSpeechSynthesizer)
-open class SpeechSynthesizer: NSObject {
-    
-    public typealias CompletionHandler = (_ data: Data?, _ error: NSError?) -> Void
+open class SpeechSynthesizer {
+    public typealias CompletionHandler = (_ data: Data?, _ error: SpeechError?) -> Void
     
     // MARK: Creating a Speech Object
     
@@ -76,14 +71,13 @@ open class SpeechSynthesizer: NSObject {
      
      To use this object, specify a Mapbox [access token](https://www.mapbox.com/help/define-access-token/) in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      */
-    @objc(sharedSpeechSynthesizer)
     public static let shared = SpeechSynthesizer(accessToken: nil)
     
     /// The API endpoint to request the audio from.
-    @objc public private(set) var apiEndpoint: URL
+    public private(set) var apiEndpoint: URL
     
     /// The Mapbox access token to associate the request with.
-    @objc public let accessToken: String
+    public let accessToken: String
     
     /**
      Initializes a newly created speech synthesizer object with an optional access token and host.
@@ -91,7 +85,7 @@ open class SpeechSynthesizer: NSObject {
      - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the speech synthesizer object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      - parameter host: An optional hostname to the server API. The Mapbox Voice API endpoint is used by default.
      */
-    @objc public init(accessToken: String?, host: String?) {
+    public init(accessToken: String?, host: String?) {
         let accessToken = accessToken ?? defaultAccessToken
         assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Speech(accessToken:host:) initializer.")
         
@@ -108,7 +102,7 @@ open class SpeechSynthesizer: NSObject {
      
      - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the speech synthesizer object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      */
-    @objc public convenience init(accessToken: String?) {
+    public convenience init(accessToken: String?) {
         self.init(accessToken: accessToken, host: nil)
     }
     
@@ -123,7 +117,6 @@ open class SpeechSynthesizer: NSObject {
      - parameter completionHandler: The closure (block) to call with the resulting audio. This closure is executed on the application’s main thread.
      - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting audio, cancel this task.
      */
-    @objc(audioDataWithOptions:completionHandler:)
     @discardableResult open func audioData(with options: SpeechOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let url = self.url(forSynthesizing: options)
         let task = dataTask(with: url, completionHandler: { (data) in
@@ -144,33 +137,45 @@ open class SpeechSynthesizer: NSObject {
      - returns: The data task for the URL.
      - postcondition: The caller must resume the returned task.
      */
-    fileprivate func dataTask(with url: URL, completionHandler: @escaping (_ data: Data) -> Void, errorHandler: @escaping (_ error: NSError) -> Void) -> URLSessionDataTask {
+    fileprivate func dataTask(with url: URL, completionHandler: @escaping (_ data: Data) -> Void, errorHandler: @escaping (_ error: SpeechError) -> Void) -> URLSessionDataTask {
         
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
-        let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
-            
-            // Parse error object
-            var errorJSON: JSONDictionary = [:]
-            if let data = data, response?.mimeType == "application/json" {
-                do {
-                    errorJSON = try JSONSerialization.jsonObject(with: data, options: []) as! JSONDictionary
-                } catch {
-                    assert(false, "Invalid data")
-                }
-            }
-            
-            let apiStatusCode = errorJSON["code"] as? String
-            let apiMessage = errorJSON["message"] as? String
-            guard data != nil && error == nil && ((apiStatusCode == nil && apiMessage == nil) || apiStatusCode == "Ok") else {
-                let apiError = SpeechSynthesizer.informativeError(describing: errorJSON, response: response, underlyingError: error as NSError?)
-                DispatchQueue.main.async {
-                    errorHandler(apiError)
-                }
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { (possibleData, possibleResponse, possibleError) in
+            guard let response = possibleResponse else {
+                errorHandler(.invalidResponse)
                 return
             }
             
-            guard let data = data else { return }
+            guard let data = possibleData else {
+                errorHandler(.noData)
+                return
+            }
+            
+            if let error = possibleError {
+                errorHandler(.unknown(response: possibleResponse, underlying: error, code: nil, message: nil))
+                return
+            }
+            
+            // Parse error object
+            if response.mimeType == "application/json" {
+                var errorJSON: JSONDictionary = [:]
+                do {
+                    errorJSON = try JSONSerialization.jsonObject(with: data, options: []) as! JSONDictionary
+                } catch {
+                    errorHandler(SpeechSynthesizer.informativeError(code: nil, message: nil, response: response, underlyingError: error))
+                }
+                
+                let apiStatusCode = errorJSON["code"] as? String
+                let apiMessage = errorJSON["message"] as? String
+                guard (apiStatusCode == nil && apiMessage == nil) || apiStatusCode == "Ok" else {
+                    let apiError = SpeechSynthesizer.informativeError(code: apiStatusCode, message: apiMessage, response: response, underlyingError: possibleError)
+                    DispatchQueue.main.async {
+                        errorHandler(apiError)
+                    }
+                    return
+                }
+            }
             
             DispatchQueue.main.async {
                 completionHandler(data)
@@ -183,7 +188,6 @@ open class SpeechSynthesizer: NSObject {
     /**
      The HTTP URL used to fetch audio from the API.
      */
-    @objc(URLForSynthesizingSpeechWithOptions:)
     open func url(forSynthesizing options: SpeechOptions) -> URL {
         var params = options.params
         
@@ -202,35 +206,62 @@ open class SpeechSynthesizer: NSObject {
     /**
      Returns an error that supplements the given underlying error with additional information from the an HTTP response’s body or headers.
      */
-    static func informativeError(describing json: JSONDictionary, response: URLResponse?, underlyingError error: NSError?) -> NSError {
-        let apiStatusCode = json["code"] as? String
-        var userInfo = error?.userInfo ?? [:]
+    static func informativeError(code: String?, message: String?, response: URLResponse?, underlyingError error: Error?) -> SpeechError {
         if let response = response as? HTTPURLResponse {
-            var failureReason: String? = nil
-            var recoverySuggestion: String? = nil
-            switch (response.statusCode, apiStatusCode ?? "") {
+            switch (response.statusCode, code ?? "") {
             case (429, _):
-                if let timeInterval = response.rateLimitInterval, let maximumCountOfRequests = response.rateLimit {
-                    let intervalFormatter = DateComponentsFormatter()
-                    intervalFormatter.unitsStyle = .full
-                    let formattedInterval = intervalFormatter.string(from: timeInterval) ?? "\(timeInterval) seconds"
-                    let formattedCount = NumberFormatter.localizedString(from: NSNumber(value: maximumCountOfRequests), number: .decimal)
-                    failureReason = "More than \(formattedCount) requests have been made with this access token within a period of \(formattedInterval)."
-                }
-                if let rolloverTime = response.rateLimitResetTime {
-                    let formattedDate = DateFormatter.localizedString(from: rolloverTime, dateStyle: .long, timeStyle: .long)
-                    recoverySuggestion = "Wait until \(formattedDate) before retrying."
-                }
+                return .rateLimited(rateLimitInterval: response.rateLimitInterval, rateLimit: response.rateLimit, resetTime: response.rateLimitResetTime)
             default:
-                failureReason = json["message"] as? String
+                return .unknown(response: response, underlying: error, code: code, message: message)
             }
-            userInfo[NSLocalizedFailureReasonErrorKey] = failureReason ?? userInfo[NSLocalizedFailureReasonErrorKey] ?? HTTPURLResponse.localizedString(forStatusCode: error?.code ?? -1)
-            userInfo[NSLocalizedRecoverySuggestionErrorKey] = recoverySuggestion ?? userInfo[NSLocalizedRecoverySuggestionErrorKey]
         }
-        if let error = error {
-            userInfo[NSUnderlyingErrorKey] = error
+        return .unknown(response: response, underlying: error, code: code, message: message)
+    }
+}
+
+public enum SpeechError: LocalizedError {
+    case noData
+    case invalidResponse
+    case rateLimited(rateLimitInterval: TimeInterval?, rateLimit: UInt?, resetTime: Date?)
+    case unknown(response: URLResponse?, underlying: Error?, code: String?, message: String?)
+    
+    public var failureReason: String? {
+        switch self {
+        case .noData:
+            return "The server returned an empty response."
+        case .invalidResponse:
+            return "The server returned a response that isn’t correctly formatted."
+        case let .rateLimited(rateLimitInterval: interval, rateLimit: limit, _):
+            let intervalFormatter = DateComponentsFormatter()
+            intervalFormatter.unitsStyle = .full
+            guard let interval = interval, let limit = limit else {
+                return "Too many requests."
+            }
+            let formattedInterval = intervalFormatter.string(from: interval) ?? "\(interval) seconds"
+            let formattedCount = NumberFormatter.localizedString(from: NSNumber(value: limit), number: .decimal)
+            return "More than \(formattedCount) requests have been made with this access token within a period of \(formattedInterval)."
+        case let .unknown(_, underlying: error, _, message):
+            return message
+                ?? (error as NSError?)?.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+                ?? HTTPURLResponse.localizedString(forStatusCode: (error as NSError?)?.code ?? -1)
         }
-        return NSError(domain: error?.domain ?? MBSpeechErrorDomain, code: error?.code ?? -1, userInfo: userInfo)
+    }
+    
+    public var recoverySuggestion: String? {
+        switch self {
+        case .noData:
+            return nil
+        case .invalidResponse:
+            return nil
+        case let .rateLimited(rateLimitInterval: _, rateLimit: _, resetTime: rolloverTime):
+            guard let rolloverTime = rolloverTime else {
+                return nil
+            }
+            let formattedDate: String = DateFormatter.localizedString(from: rolloverTime, dateStyle: .long, timeStyle: .long)
+            return "Wait until \(formattedDate) before retrying."
+        case let .unknown(_, underlying: error, _, _):
+            return (error as NSError?)?.userInfo[NSLocalizedRecoverySuggestionErrorKey] as? String
+        }
     }
 }
 
