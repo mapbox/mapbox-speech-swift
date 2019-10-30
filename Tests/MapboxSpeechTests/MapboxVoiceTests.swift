@@ -41,7 +41,7 @@ class MapboxVoiceTests: XCTestCase {
         options.locale = Locale(identifier: "en_US")
         
         var audio: Data?
-        let task = voice.audioData(with: options) { (data: Data?, error: NSError?) in
+        let task = voice.audioData(with: options) { (data: Data?, error: SpeechError?) in
             XCTAssertNil(error)
             XCTAssertNotNil(data)
             audio = data!
