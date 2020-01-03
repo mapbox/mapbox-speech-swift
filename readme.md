@@ -9,19 +9,19 @@ This library is compatible with applications written in Swift. Version 2.0 was t
 Specify the following dependency in your [Carthage](https://github.com/Carthage/Carthage) Cartfile:
 
 ```cartfile
-github "mapbox/mapbox-speech-swift" ~> 0.2
+github "mapbox/mapbox-speech-swift" ~> 0.3
 ```
 
 Or in your [CocoaPods](http://cocoapods.org/) Podfile:
 
 ```podspec
-pod 'MapboxSpeech', '~> 0.2.0'
+pod 'MapboxSpeech', '~> 0.3.0'
 ```
 
 Or in your [Swift Package Manager](https://swift.org/package-manager/) Package.swift:
 
 ```swift
-.package(url: "https://github.com/mapbox/mapbox-speech-swift.git", from: "0.2.0")
+.package(url: "https://github.com/mapbox/mapbox-speech-swift.git", from: "0.3.0")
 ```
 
 Then `import MapboxSpeech` or `@import MapboxSpeech;`.
