@@ -142,8 +142,8 @@ open class SpeechSynthesizer {
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         let task = URLSession.shared.dataTask(with: request as URLRequest) { (possibleData, possibleResponse, possibleError) in
-            guard let response = possibleResponse else {
-                errorHandler(.invalidResponse)
+            if let error = possibleError {
+                errorHandler(.unknown(response: possibleResponse, underlying: error, code: nil, message: nil))
                 return
             }
             
@@ -152,8 +152,8 @@ open class SpeechSynthesizer {
                 return
             }
             
-            if let error = possibleError {
-                errorHandler(.unknown(response: possibleResponse, underlying: error, code: nil, message: nil))
+            guard let response = possibleResponse else {
+                errorHandler(.invalidResponse)
                 return
             }
             
