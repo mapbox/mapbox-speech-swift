@@ -25,7 +25,7 @@ class MapboxVoiceTests: XCTestCase {
             "outputFormat": "mp3",
             "gender": "female",
             "access_token": BogusToken,
-            ]
+        ]
         
         stub(condition: isHost("api.mapbox.com")
             && isPath("/voice/v1/speak/hello")
@@ -73,5 +73,35 @@ class MapboxVoiceTests: XCTestCase {
         XCTAssert(options.speechGender == decodedOptions.speechGender)
         XCTAssert(options.textType == decodedOptions.textType)
         XCTAssert(options.text == decodedOptions.text)
+    }
+    
+    // Test whether error is returned in case if SpeechSynthesizer.audioData(with:completionHandler:) was cancelled.
+    func testDataTaskCancel() {
+        let expectation = self.expectation(description: "Cancelled task should return error.")
+        let voice = SpeechSynthesizer(accessToken: BogusToken)
+        let options = SpeechOptions(text: "hello")
+        let task = voice.audioData(with: options) { (data: Data?, error: SpeechError?) in
+            if let error = error,
+                case let .unknown(response: _, underlying: underlyingError, code: _, message: _) = error,
+                let urlError = underlyingError as? URLError {
+                                
+                XCTAssertEqual(urlError.code, .cancelled)
+                expectation.fulfill()
+                
+                return
+            }
+            
+            XCTFail("Since task is cancelled error is expected.")
+        }
+        
+        XCTAssertNotNil(task)
+        
+        // Cancel URLSessionDataTask right after creation.
+        task.cancel()
+        
+        waitForExpectations(timeout: 2) { (error) in
+            XCTAssertNil(error, "Error: \(error!)")
+            XCTAssertEqual(task.state, .completed)
+        }
     }
 }
