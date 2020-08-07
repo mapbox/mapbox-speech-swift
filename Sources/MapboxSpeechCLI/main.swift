@@ -1,11 +1,12 @@
+#!/usr/bin/swift
+
 import Foundation
 import MapboxSpeech
 import AVFoundation
 
-
 guard CommandLine.arguments.count >= 2 else {
-        print("Nothing to say?")
-        exit(0)
+    print("Nothing to say?")
+    exit(0)
 }
 
 guard let token = ProcessInfo.processInfo.environment["MAPBOX_ACCESS_TOKEN"] else {
@@ -19,9 +20,15 @@ var speech = SpeechSynthesizer(accessToken: token)
 
 let url = speech.url(forSynthesizing: options)
 print("URL: \(url)")
-let data = try! Data(contentsOf: url)
-print("Data: \(data)")
-let player = try! AVAudioPlayer(data: data)
-player.play()
-RunLoop.main.run(until: Date().addingTimeInterval(player.duration))
 
+do {
+    let data = try Data(contentsOf: url)
+    print("Data: \(data)")
+
+    let audioPlayer = try AVAudioPlayer(data: data)
+    audioPlayer.play()
+
+    RunLoop.main.run(until: Date().addingTimeInterval(audioPlayer.duration))
+} catch {
+    print("Error occured: \(error)")
+}
