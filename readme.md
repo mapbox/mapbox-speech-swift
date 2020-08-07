@@ -1,6 +1,6 @@
 # Mapbox Speech
 
-Mapbox Speech connects your iOS, macOS, tvOS, or watchOS application to the Mapbox Voice API. Take turn instructions from the [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) and read them aloud naturally in multiple languages. This library is specifically designed to work with [MapboxDirections.swift](https://github.com/mapbox/MapboxDirections.swift/) as part of the [Mapbox Navigation SDK for iOS](https://github.com/mapbox/mapbox-navigation-ios/).
+Mapbox Speech connects your iOS, macOS, tvOS, or watchOS application to the Mapbox Voice API. Take turn instructions from the [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) and read them aloud naturally in multiple languages. This library is specifically designed to work with [mapbox-directions-swift](https://github.com/mapbox/mapbox-directions-swift/) as part of the [Mapbox Navigation SDK for iOS](https://github.com/mapbox/mapbox-navigation-ios/).
 
 This library is compatible with applications written in Swift. Version 2.0 was the last version of this library to support applications written in Objective-C or AppleScript.
 
@@ -15,13 +15,13 @@ github "mapbox/mapbox-speech-swift" ~> 0.3
 Or in your [CocoaPods](http://cocoapods.org/) Podfile:
 
 ```podspec
-pod 'MapboxSpeech', '~> 0.3.0'
+pod 'MapboxSpeech', '~> 0.3.1'
 ```
 
 Or in your [Swift Package Manager](https://swift.org/package-manager/) Package.swift:
 
 ```swift
-.package(url: "https://github.com/mapbox/mapbox-speech-swift.git", from: "0.3.0")
+.package(url: "https://github.com/mapbox/mapbox-speech-swift.git", from: "0.3.1")
 ```
 
 Then `import MapboxSpeech` or `@import MapboxSpeech;`.
