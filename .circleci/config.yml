@@ -38,6 +38,11 @@ step-library:
         name: Build for watchOS
         command: |
           xcodebuild -destination 'platform=watchOS Simulator,OS=5.2,name=Apple Watch Series 3 - 42mm' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech watchOS" clean build
+    
+    - &publish-codecov
+      run:
+        name: Publish Code Coverage
+        command: bash <(curl -s https://codecov.io/bash)
 
 jobs:
   ios-build-test:
@@ -50,6 +55,7 @@ jobs:
       - *install-dependencies
       - *ios-build-test
       - *macos-build-test
+      - *publish-codecov
       - *tvos-build-test
       - *watchos-build
   spm:

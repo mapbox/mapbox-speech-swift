@@ -1,5 +1,11 @@
 # Mapbox Speech
 
+[![CircleCI](https://circleci.com/gh/mapbox/mapbox-speech-swift.svg?style=svg)](https://circleci.com/gh/mapbox/mapbox-speech-swift)
+[![codecov](https://codecov.io/gh/mapbox/mapbox-speech-swift/branch/main/graph/badge.svg?token=uKxKAJ2DQH)](https://codecov.io/gh/mapbox/mapbox-speech-swift)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![CocoaPods](https://img.shields.io/cocoapods/v/MapboxSpeech.svg)](https://cocoapods.org/pods/MapboxSpeech/)
+[![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
+
 Mapbox Speech connects your iOS, macOS, tvOS, or watchOS application to the Mapbox Voice API. Take turn instructions from the [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) and read them aloud naturally in multiple languages. This library is specifically designed to work with [mapbox-directions-swift](https://github.com/mapbox/mapbox-directions-swift/) as part of the [Mapbox Navigation SDK for iOS](https://github.com/mapbox/mapbox-navigation-ios/).
 
 This library is compatible with applications written in Swift. Version 2.0 was the last version of this library to support applications written in Objective-C or AppleScript.
