@@ -3,7 +3,8 @@ import Foundation
 typealias JSONDictionary = [String: Any]
 
 /// The Mapbox access token specified in the main application bundle’s Info.plist.
-let defaultAccessToken = Bundle.main.object(forInfoDictionaryKey: "MGLMapboxAccessToken") as? String
+let defaultAccessToken = Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String
+let fallbackAccessToken = Bundle.main.object(forInfoDictionaryKey: "MGLMapboxAccessToken") as? String
 
 /// The user agent string for any HTTP requests performed directly within this library.
 let userAgent: String = {
@@ -93,7 +94,7 @@ open class SpeechSynthesizer {
      - parameter host: An optional hostname to the server API. The Mapbox Voice API endpoint is used by default.
      */
     public init(accessToken: String?, host: String?) {
-        let accessToken = accessToken ?? defaultAccessToken
+        let accessToken = accessToken ?? defaultAccessToken ?? fallbackAccessToken
         assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Speech(accessToken:host:) initializer.")
         
         self.accessToken = accessToken!
