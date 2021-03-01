@@ -34,7 +34,7 @@ Then `import MapboxSpeech` or `@import MapboxSpeech;`.
 
 ## Usage
 
-You’ll need a [Mapbox access token](https://www.mapbox.com/developers/api/#access-tokens) in order to use the API. If you’re already using the [Mapbox Maps SDK for iOS](https://www.mapbox.com/ios-sdk/) or [macOS SDK](https://mapbox.github.io/mapbox-gl-native/macos/), Mapbox Speech automatically recognizes your access token, as long as you’ve placed it in the `MGLMapboxAccessToken` key of your application’s Info.plist file.
+You’ll need a [Mapbox access token](https://www.mapbox.com/developers/api/#access-tokens) in order to use the API. If you’re already using the [Mapbox Maps SDK for iOS](https://www.mapbox.com/ios-sdk/) or [macOS SDK](https://mapbox.github.io/mapbox-gl-native/macos/), Mapbox Speech automatically recognizes your access token, as long as you’ve placed it in the `MBXAccessToken` key of your application’s Info.plist file.
 
 ### Basics
 
@@ -46,7 +46,7 @@ import MapboxSpeech
 let speechSynthesizer = SpeechSynthesizer(accessToken: "<#your access token#>")
 ```
 
-Alternatively, you can place your access token in the `MGLMapboxAccessToken` key of your application’s Info.plist file, then use the shared speech synthesizer object:
+Alternatively, you can place your access token in the `MBXAccessToken` key of your application’s Info.plist file, then use the shared speech synthesizer object:
 
 ```swift
 // main.swift
