@@ -12,7 +12,7 @@ class MapboxVoiceTests: XCTestCase {
     }
     
     override func tearDown() {
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
     
@@ -31,7 +31,7 @@ class MapboxVoiceTests: XCTestCase {
             && isPath("/voice/v1/speak/hello")
             && containsQueryParams(queryParams)) { _ in
                 let path = Bundle(for: type(of: self)).path(forResource: "hello", ofType: "mp3")
-                return OHHTTPStubsResponse(fileAtPath: path!, statusCode: 200, headers: nil)
+                return HTTPStubsResponse(fileAtPath: path!, statusCode: 200, headers: nil)
         }
         
         let voice = SpeechSynthesizer(accessToken: BogusToken)
