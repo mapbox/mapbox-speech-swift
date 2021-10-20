@@ -45,4 +45,4 @@ fi
 
 step "Updating copyright year to ${YEAR}…"
 
-sed -i '' -E "s/© ([0-9]{4})[–-][0-9]{4}/© \\1–${YEAR}/g" LICENSE.md
+sed -i '' -E "s/© ([0-9]{4})[–-][0-9]{4}/© \\1–${YEAR}/g" LICENSE.md Sources/MapboxSpeech/Info.plist
