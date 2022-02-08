@@ -99,15 +99,14 @@ public extension Locale {
      */
     var amazonIdentifier : String {
         let unsupported : Dictionary<String, String> = [
-            "ar-SA" : "arb",
-            "zh-CN" : "cmn-CN",
-            "zh-HK" : "cmn-CN",
-            "zh-Hans" : "cmn-CN" ,
-            "zh-Hant" : "cmn-CN",
-            "zh-TW" : "cmn-CN",
+            "ar"     : "arb",
+            "zh"     : "cmn-CN"
         ]
-        if unsupported.keys.contains(self.identifier), let patchedIdentifier = unsupported[ self.identifier ] {
-            return patchedIdentifier
+        let languageComponents = Locale.components(fromIdentifier: self.identifier)
+        if let languageCode = languageComponents["kCFLocaleLanguageCodeKey"] {
+            if unsupported.keys.contains(languageCode), let patchedIdentifier = unsupported[ languageCode ] {
+                return patchedIdentifier
+            }
         }
         return self.identifier
     }
