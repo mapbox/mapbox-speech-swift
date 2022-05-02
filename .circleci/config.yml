@@ -42,7 +42,10 @@ step-library:
     - &publish-codecov
       run:
         name: Publish Code Coverage
-        command: bash <(curl -s https://codecov.io/bash)
+        command: |
+          curl -Os https://uploader.codecov.io/latest/macos/codecov
+          chmod +x codecov
+          ./codecov
 
 jobs:
   ios-build-test:
