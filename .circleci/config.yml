@@ -58,6 +58,7 @@ jobs:
       - *install-dependencies
       - *ios-build-test
       - *macos-build-test
+      - *publish-codecov
       - *tvos-build-test
       - *watchos-build
   spm:
