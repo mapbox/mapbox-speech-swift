@@ -47,7 +47,7 @@ step-library:
 jobs:
   ios-build-test:
     macos:
-      xcode: "11.5.0"
+      xcode: "12.5.1"
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 0
     steps:
@@ -59,13 +59,13 @@ jobs:
       - *watchos-build
   spm:
     macos:
-      xcode: "11.5.0"
+      xcode: "12.5.1"
     steps:
       - checkout
       - run: swift build
   pod:
     macos:
-      xcode: "11.5.0"
+      xcode: "12.5.1"
     steps:
       - checkout
       - run: 
