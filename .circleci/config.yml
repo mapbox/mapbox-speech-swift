@@ -19,7 +19,7 @@ step-library:
       run:
         name: Build and Test for iOS
         command: |
-          xcodebuild -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=13.5,name=iPhone 11 Pro Max' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech iOS" clean build test
+          xcodebuild -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=14.5,name=iPhone 11 Pro Max' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech iOS" clean build test
     
     - &macos-build-test
       run:
