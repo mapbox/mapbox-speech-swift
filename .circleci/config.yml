@@ -13,7 +13,7 @@ step-library:
       run:
         name: Install Dependencies
         command: |
-          carthage bootstrap
+          carthage bootstrap --use-xcframeworks
     
     - &ios-build-test
       run:
