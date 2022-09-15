@@ -13,13 +13,13 @@ step-library:
       run:
         name: Install Dependencies
         command: |
-          carthage bootstrap
+          carthage bootstrap --use-xcframeworks
     
     - &ios-build-test
       run:
         name: Build and Test for iOS
         command: |
-          xcodebuild -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=13.5,name=iPhone 11 Pro Max' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech iOS" clean build test
+          xcodebuild -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=14.5,name=iPhone 11 Pro Max' -project MapboxSpeech.xcodeproj -scheme "MapboxSpeech iOS" clean build test
     
     - &macos-build-test
       run:
@@ -47,7 +47,7 @@ step-library:
 jobs:
   ios-build-test:
     macos:
-      xcode: "11.5.0"
+      xcode: "12.5.1"
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 0
     steps:
@@ -59,13 +59,13 @@ jobs:
       - *watchos-build
   spm:
     macos:
-      xcode: "11.5.0"
+      xcode: "12.5.1"
     steps:
       - checkout
       - run: swift build
   pod:
     macos:
-      xcode: "11.5.0"
+      xcode: "12.5.1"
     steps:
       - checkout
       - run: 
