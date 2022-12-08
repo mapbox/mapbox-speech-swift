@@ -150,9 +150,13 @@ open class SpeechSynthesizer {
     @discardableResult open func audioData(with options: SpeechOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let url = self.url(forSynthesizing: options)
         let task = dataTask(with: url, completionHandler: { (data) in
-            completionHandler(data, nil)
+            DispatchQueue.main.async {
+                completionHandler(data, nil)
+            }
         }) { (error) in
-            completionHandler(nil, error)
+            DispatchQueue.main.async {
+                completionHandler(nil, error)
+            }
         }
         task.resume()
         return task
@@ -194,22 +198,19 @@ open class SpeechSynthesizer {
                     errorJSON = try JSONSerialization.jsonObject(with: data, options: []) as! JSONDictionary
                 } catch {
                     errorHandler(SpeechSynthesizer.informativeError(code: nil, message: nil, response: response, underlyingError: error))
+                    return
                 }
                 
                 let apiStatusCode = errorJSON["code"] as? String
                 let apiMessage = errorJSON["message"] as? String
                 guard (apiStatusCode == nil && apiMessage == nil) || apiStatusCode == "Ok" else {
                     let apiError = SpeechSynthesizer.informativeError(code: apiStatusCode, message: apiMessage, response: response, underlyingError: possibleError)
-                    DispatchQueue.main.async {
-                        errorHandler(apiError)
-                    }
+                    errorHandler(apiError)
                     return
                 }
             }
-            
-            DispatchQueue.main.async {
-                completionHandler(data)
-            }
+
+            completionHandler(data)
         }
         task.resume()
         return task
