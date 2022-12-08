@@ -27,7 +27,7 @@ pod 'MapboxSpeech', '~> 2.1'
 Or in your [Swift Package Manager](https://swift.org/package-manager/) Package.swift:
 
 ```swift
-.package(url: "https://github.com/mapbox/mapbox-speech-swift.git", from: "2.1.0")
+.package(url: "https://github.com/mapbox/mapbox-speech-swift.git", from: "2.1.1")
 ```
 
 Then `import MapboxSpeech` or `@import MapboxSpeech;`.
