@@ -5,12 +5,6 @@ import OHHTTPStubs
 let BogusToken = "pk.foo-bar"
 
 class MapboxVoiceTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
     override func tearDown() {
         HTTPStubs.removeAllStubs()
         super.tearDown()
@@ -55,6 +49,56 @@ class MapboxVoiceTests: XCTestCase {
         }
         
         XCTAssertNotNil(audio)
+    }
+
+    func testCorrectJson() {
+        let incorrectJson = "{\"code\": \"Ok\", \"message\": \"voice instruction\"}"
+        let headers = ["Content-Type": "application/json"]
+        let expectation = self.expectation(description: "Fetching speech audio should return results")
+        stub(condition: isHost("api.mapbox.com") && isPath("/voice/v1/speak/hello")) { _ in
+            let data = incorrectJson.data(using: .utf8)!
+            return HTTPStubsResponse(data: data, statusCode: 200, headers: headers)
+        }
+
+        let voice = SpeechSynthesizer(accessToken: BogusToken)
+        let options = SpeechOptions(text: "hello")
+        options.outputFormat = .mp3
+        options.speechGender = .female
+        options.locale = Locale(identifier: "en_US")
+
+        let task = voice.audioData(with: options) { (data: Data?, error: SpeechError?) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(data)
+            expectation.fulfill()
+        }
+        XCTAssertNotNil(task)
+
+        waitForExpectations(timeout: 2)
+    }
+
+    func testErrorInJson() {
+        let incorrectJson = "{}}"
+        let headers = ["Content-Type": "application/json"]
+        let expectation = self.expectation(description: "Fetching speech audio should return results")
+        stub(condition: isHost("api.mapbox.com") && isPath("/voice/v1/speak/hello")) { _ in
+            let data = incorrectJson.data(using: .utf8)!
+            return HTTPStubsResponse(data: data, statusCode: 200, headers: headers)
+        }
+
+        let voice = SpeechSynthesizer(accessToken: BogusToken)
+        let options = SpeechOptions(text: "hello")
+        options.outputFormat = .mp3
+        options.speechGender = .female
+        options.locale = Locale(identifier: "en_US")
+
+        let task = voice.audioData(with: options) { (data: Data?, error: SpeechError?) in
+            XCTAssertNotNil(error)
+            XCTAssertNil(data)
+            expectation.fulfill()
+        }
+        XCTAssertNotNil(task)
+
+        waitForExpectations(timeout: 2)
     }
     
     func testCoding() {
@@ -103,5 +147,36 @@ class MapboxVoiceTests: XCTestCase {
             XCTAssertNil(error, "Error: \(error!)")
             XCTAssertEqual(task.state, .completed)
         }
+    }
+
+    func testDataTaskFailed() {
+        let expectation = self.expectation(description: "Should return error.")
+        let voice = SpeechSynthesizer(accessToken: BogusToken)
+        let options = SpeechOptions(text: "hello")
+
+        let description = "error description"
+        let userInfo = [NSLocalizedFailureReasonErrorKey: description]
+        let mockedError = NSError(domain: "error domain", code: 1, userInfo: userInfo)
+        stub(condition: isHost("api.mapbox.com") && isPath("/voice/v1/speak/hello")) { _ in
+            return HTTPStubsResponse(error: mockedError)
+        }
+
+        let task = voice.audioData(with: options) { (data: Data?, error: SpeechError?) in
+            guard let error = error,
+                  case .unknown(response: _, underlying: let underlyingError, code: _, message: _) = error,
+                  let innerError = underlyingError as? NSError else {
+                XCTFail("SpeechSynthesizing should fail if data task failed")
+                return
+            }
+
+            XCTAssertNil(data)
+            XCTAssertEqual(innerError.localizedDescription, mockedError.localizedDescription)
+            expectation.fulfill()
+        }
+
+        XCTAssertNotNil(task)
+
+        waitForExpectations(timeout: 2)
+        XCTAssertEqual(task.state, .completed)
     }
 }
