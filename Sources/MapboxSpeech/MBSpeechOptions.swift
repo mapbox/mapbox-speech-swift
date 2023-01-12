@@ -74,7 +74,7 @@ open class SpeechOptions: Codable {
     internal var params: [URLQueryItem] {
         var params: [URLQueryItem] = [
             URLQueryItem(name: "textType", value: String(describing: textType)),
-            URLQueryItem(name: "language", value: locale.identifier),
+            URLQueryItem(name: "language", value: locale.amazonIdentifier),
             URLQueryItem(name: "outputFormat", value: String(describing: outputFormat))
         ]
         
@@ -85,3 +85,30 @@ open class SpeechOptions: Codable {
         return params
     }
 }
+
+public extension Locale {
+    
+    /**
+     `String` Returns the identifier of the locale identifier supported by Amazon Polly [`Supported Language`](https://docs.aws.amazon.com/polly/latest/dg/SupportedLanguage.html).
+     
+     While common language identifiers are two-letter `ISO 639-1` standard, three-letter `ISO 639-2` standard or even `RFC 4647` (known as BCP 47), `Amazon Polly` uses `ISO 639-3`
+     W3C language identification which creates incompatibility with `Locale.current`.
+     This computed property either return `Locale.identifier` or the supported version of the unknown code.
+     List of currently unsupported codes :
+     "ar-SA", "zh-CN", "zh-HK", "zh-Hans", "zh-Hant", "zh-TW"
+     */
+    var amazonIdentifier : String {
+        let unsupported : Dictionary<String, String> = [
+            "ar"     : "arb",
+            "zh"     : "cmn-CN"
+        ]
+        let languageComponents = Locale.components(fromIdentifier: self.identifier)
+        if let languageCode = languageComponents["kCFLocaleLanguageCodeKey"] {
+            if unsupported.keys.contains(languageCode), let patchedIdentifier = unsupported[ languageCode ] {
+                return patchedIdentifier
+            }
+        }
+        return self.identifier
+    }
+}
+

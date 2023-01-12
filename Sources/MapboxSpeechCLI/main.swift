@@ -18,6 +18,11 @@ let text = CommandLine.arguments[1]
 let options = SpeechOptions(text: text)
 var speech = SpeechSynthesizer(accessToken: token)
 
+if CommandLine.arguments.count > 2 {
+    let language = CommandLine.arguments[2]
+    options.locale = .init(identifier: language)
+}
+
 let url = speech.url(forSynthesizing: options)
 print("URL: \(url)")
 
